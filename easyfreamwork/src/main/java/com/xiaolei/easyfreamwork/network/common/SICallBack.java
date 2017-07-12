@@ -12,6 +12,8 @@ import com.xiaolei.easyfreamwork.Bean.ResBodyBean;
 import com.xiaolei.easyfreamwork.R;
 import com.xiaolei.easyfreamwork.application.ApplicationBreage;
 import com.xiaolei.easyfreamwork.common.callback.URIMethod;
+import com.xiaolei.easyfreamwork.network.regist.Regist;
+import com.xiaolei.easyfreamwork.network.regist.RegisteTable;
 import com.xiaolei.easyfreamwork.utils.Log;
 
 import java.io.IOException;
@@ -37,7 +39,7 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
     SoftReference<Context> context;
     AlertDialog.Builder builder;
     private URIMethod uriMethod = URIMethod.getInstance();
-    
+
     public SICallBack(Context context)
     {
         this.context = new SoftReference(context);
@@ -122,20 +124,42 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
     {
         try
         {
-            if (ResBodyBean.class.isInstance(bodyBean))
+//            if (ResBodyBean.class.isInstance(bodyBean))
+//            {
+//                ResBodyBean body = (ResBodyBean) bodyBean;
+//                body.callback = "/aaaa";
+//                if (body.callback != null && !body.callback.isEmpty())
+//                {
+//                    Method method = uriMethod.getMethod(body.callback);
+//                    if (method != null)
+//                    {
+//                        if (!method.isAccessible())
+//                        {
+//                            method.setAccessible(true);
+//                        }
+//                        method.invoke(uriMethod, new Object[]{context.get(), this});
+//                    }
+//                }
+//            }
+            
+            Class<? extends Regist> regist = RegisteTable.getInstance().getRegistValue(bodyBean);
+            if (regist != null)
             {
-                ResBodyBean body = (ResBodyBean)bodyBean;
-                body.callback = "/aaaa";
-                if (body.callback != null && !body.callback.isEmpty())
+                Regist registObj = RegisteTable.getInstance().getRegistObj(regist);
+                if (registObj != null)
                 {
-                    Method method = uriMethod.getField(body.callback);
-                    if (method != null)
+                    String callback = registObj.filter(bodyBean);
+                    if (callback != null && !callback.isEmpty())
                     {
-                        if (!method.isAccessible()) 
+                        Method method = registObj.getMethod(callback);
+                        if (method != null)
                         {
-                            method.setAccessible(true);
+                            if (!method.isAccessible())
+                            {
+                                method.setAccessible(true);
+                            }
+                            method.invoke(registObj, new Object[]{context.get(), this});
                         }
-                        method.invoke(uriMethod, new Object[]{context.get(), this});
                     }
                 }
             }

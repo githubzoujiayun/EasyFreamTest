@@ -27,7 +27,7 @@ public class URIMethod
         return methods;
     }
 
-    public Method getField(String callBackStr)
+    public Method getMethod(String callBackStr)
     {
         if (arrayMap.isEmpty())
         {

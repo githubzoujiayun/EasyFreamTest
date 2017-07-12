@@ -5,9 +5,14 @@ import android.app.Application;
 import android.content.Context;
 
 import com.xiaolei.easyfreamwork.Config.Config;
+import com.xiaolei.easyfreamwork.annotations.OnCallBack;
 import com.xiaolei.easyfreamwork.application.ApplicationBreage;
 import com.xiaolei.easyfreamwork.application.IApp;
 import com.xiaolei.easyfreamwork.network.BaseNetCore;
+import com.xiaolei.easyfreamwork.network.common.SICallBack;
+import com.xiaolei.easyfreamwork.network.regist.Regist;
+import com.xiaolei.easyfreamwork.network.regist.RegisteTable;
+import com.xiaolei.easyfreamwork.utils.Log;
 
 import java.net.CookieStore;
 import java.util.ArrayList;
@@ -31,10 +36,11 @@ public class APP extends Application implements IApp
         Config config = new Config();
         config.setDEBUG(true);
         config.setBaseUrl("http://www.baidu.com/");
-        Map<String,String> head = new HashMap<>();
-        head.put("from","xiaolei");
+        Map<String, String> head = new HashMap<>();
+        head.put("from", "xiaolei");
         config.setNetHeadeMap(head);
-        ApplicationBreage.getInstance().initApplication(this,config);
+        ApplicationBreage.getInstance().initApplication(this, config);
+        RegisteTable.getInstance().regist(String.class, StringRegist.class);
         super.onCreate();
     }
 
@@ -53,7 +59,7 @@ public class APP extends Application implements IApp
     @Override
     public void removeAllActivity()
     {
-        for(Activity activity:activities)
+        for (Activity activity : activities)
         {
             activity.finish();
         }
@@ -82,4 +88,21 @@ public class APP extends Application implements IApp
     {
         return this;
     }
+    
+    
+    
+    public static class StringRegist extends Regist<String>
+    {
+        @Override
+        public String filter(String s)
+        {
+            return s;
+        }
+        @OnCallBack("/aaaa")
+        public void haveToLogin(Context context, SICallBack callBack)
+        {
+            Log.e("haveToLogin", "haveToLogin");
+        }
+    }
+
 }

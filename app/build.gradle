@@ -20,7 +20,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    //compile project(':easyfreamwork')
-    compile 'com.xiaolei:easyfreamwork:1.0.0'
+    compile project(':easyfreamwork')
+//    compile 'com.xiaolei:easyfreamwork:1.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }
