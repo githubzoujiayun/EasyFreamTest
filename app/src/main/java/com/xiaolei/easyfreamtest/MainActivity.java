@@ -7,13 +7,9 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.xiaolei.easyfreamwork.Config.Globals;
-import com.xiaolei.easyfreamwork.annotations.OnLoginAction;
-import com.xiaolei.easyfreamwork.annotations.OnRefreshAction;
 import com.xiaolei.easyfreamwork.base.BaseActivity;
 import com.xiaolei.easyfreamwork.network.BaseRetrofit;
 import com.xiaolei.easyfreamwork.network.common.SCallBack;
-
-import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import rx.Observable;
@@ -64,13 +60,11 @@ public class MainActivity extends BaseActivity
         Log.e("MainActivity", "setListener");
     }
 
-    @OnRefreshAction
     public void OnRefreshAction()
     {
         Alert("OnRefreshAction");
     }
-
-    @OnLoginAction
+    
     public void OnLoginAction()
     {
         Alert("OnLoginAction");
