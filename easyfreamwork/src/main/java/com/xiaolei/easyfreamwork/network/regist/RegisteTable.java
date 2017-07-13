@@ -35,20 +35,17 @@ public class RegisteTable
         return instance;
     }
 
-    public void regist(Class klass, Class<? extends Regist> registClass)
+    public <T> void regist(Class<T> klass, Class<? extends Regist<T>> registClass)
     {
         Object object = null;
         try
         {
             object = registClass.newInstance();
-        } catch (Exception e)
-        {
-            new Exception(registClass+"类需要至少一个Public无参构造函数").printStackTrace();
-        }
-        if (object != null)
-        {
             map.put(klass, registClass);
             registObj.put(registClass, object);
+        } catch (Exception e)
+        {
+            new Exception(registClass + "类需要至少一个Public无参构造函数").printStackTrace();
         }
     }
 
@@ -79,6 +76,4 @@ public class RegisteTable
     {
         return (Regist) registObj.get(klass);
     }
-
-
 }

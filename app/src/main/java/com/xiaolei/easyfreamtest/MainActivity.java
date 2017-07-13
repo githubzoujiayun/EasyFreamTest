@@ -61,7 +61,7 @@ public class MainActivity extends BaseActivity
     {
         Log.e("MainActivity", "setListener");
     }
-    
+
     @OnRefreshAction
     public void OnRefreshAction()
     {
@@ -73,8 +73,9 @@ public class MainActivity extends BaseActivity
     {
         Alert("OnLoginAction");
     }
-    
+
     int a = 0;
+
     @Override
     public void loadData()
     {
@@ -87,15 +88,20 @@ public class MainActivity extends BaseActivity
                     @Override
                     public void onSuccess(String result) throws Exception
                     {
-                        Log.e("MainActivity","加载完成了？");
+                        Log.e("MainActivity", "加载完成了？");
                         Intent intent = new Intent(Globals.Action.RefreshRecever_Action);
-                        intent.putExtra("ACTION",Globals.Action.REFRESH.REFRESH);
+                        intent.putExtra("ACTION", Globals.Action.REFRESH.REFRESH);
                         LocalBroadcastManager.getInstance(MainActivity.this).sendBroadcast(intent);
 
                         Intent intent2 = new Intent(Globals.Action.RefreshRecever_Action);
-                        intent2.putExtra("ACTION",Globals.Action.REFRESH.LOGIN);
+                        intent2.putExtra("ACTION", Globals.Action.REFRESH.LOGIN);
                         LocalBroadcastManager.getInstance(MainActivity.this).sendBroadcast(intent2);
                     }
                 });
+    }
+
+    public <T> T F(int id)
+    {
+        return (T) findViewById(id);
     }
 }
