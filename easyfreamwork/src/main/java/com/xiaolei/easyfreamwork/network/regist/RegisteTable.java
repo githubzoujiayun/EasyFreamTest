@@ -2,11 +2,8 @@ package com.xiaolei.easyfreamwork.network.regist;
 
 import android.support.v4.util.ArrayMap;
 
-import com.xiaolei.easyfreamwork.Bean.ResBodyBean;
-import com.xiaolei.easyfreamwork.common.callback.URIMethod;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

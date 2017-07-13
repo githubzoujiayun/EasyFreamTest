@@ -8,10 +8,8 @@ import android.support.v7.app.AlertDialog;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.xiaolei.easyfreamwork.Bean.ResBodyBean;
 import com.xiaolei.easyfreamwork.R;
 import com.xiaolei.easyfreamwork.application.ApplicationBreage;
-import com.xiaolei.easyfreamwork.common.callback.URIMethod;
 import com.xiaolei.easyfreamwork.network.regist.Regist;
 import com.xiaolei.easyfreamwork.network.regist.RegisteTable;
 import com.xiaolei.easyfreamwork.utils.Log;
@@ -38,7 +36,6 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
 {
     SoftReference<Context> context;
     AlertDialog.Builder builder;
-    private URIMethod uriMethod = URIMethod.getInstance();
 
     public SICallBack(Context context)
     {
@@ -124,24 +121,6 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
     {
         try
         {
-//            if (ResBodyBean.class.isInstance(bodyBean))
-//            {
-//                ResBodyBean body = (ResBodyBean) bodyBean;
-//                body.callback = "/aaaa";
-//                if (body.callback != null && !body.callback.isEmpty())
-//                {
-//                    Method method = uriMethod.getMethod(body.callback);
-//                    if (method != null)
-//                    {
-//                        if (!method.isAccessible())
-//                        {
-//                            method.setAccessible(true);
-//                        }
-//                        method.invoke(uriMethod, new Object[]{context.get(), this});
-//                    }
-//                }
-//            }
-            
             Class<? extends Regist> regist = RegisteTable.getInstance().getRegistValue(bodyBean);
             if (regist != null)
             {
