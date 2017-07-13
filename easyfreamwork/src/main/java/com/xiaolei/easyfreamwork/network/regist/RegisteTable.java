@@ -1,8 +1,6 @@
 package com.xiaolei.easyfreamwork.network.regist;
 
 import android.support.v4.util.ArrayMap;
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

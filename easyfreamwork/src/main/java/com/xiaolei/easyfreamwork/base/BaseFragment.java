@@ -3,14 +3,10 @@ package com.xiaolei.easyfreamwork.base;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +14,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.xiaolei.easyfreamwork.common.listeners.Action;
-import com.xiaolei.easyfreamwork.receiver.RefreshRecever;
+import com.xiaolei.easyfreamwork.eventbus.Message;
 import com.xiaolei.easyfreamwork.utils.Log;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.ButterKnife;
 
@@ -27,12 +27,11 @@ import butterknife.ButterKnife;
  * Created by xiaolei on 2017/3/7.
  */
 
-public abstract class BaseFragment extends Fragment implements UIDataDelegate
+public abstract class BaseFragment extends Fragment
 {
     protected Handler handler = null;
     protected final String TAG = "BaseFragment";
     protected Toast toast = null;
-    private RefreshRecever recever;
     private View contentView = null;
     private AlertDialog.Builder builder;
     
@@ -42,8 +41,7 @@ public abstract class BaseFragment extends Fragment implements UIDataDelegate
         Log.e(TAG,this.getClass().getName() + ":onCreate");
         super.onCreate(savedInstanceState);
         builder = new AlertDialog.Builder(getActivity());
-        recever = new RefreshRecever(this);
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(recever, new IntentFilter(RefreshRecever.ACTION));
+        EventBus.getDefault().register(this);
     }
     
     @Override
@@ -109,7 +107,7 @@ public abstract class BaseFragment extends Fragment implements UIDataDelegate
     {
         Log.d(TAG, this.getClass().getName() + ":onDestroy");
         handler.removeCallbacksAndMessages(null);
-        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(recever);
+        EventBus.getDefault().unregister(this);        
         super.onDestroy();
     }
 
@@ -177,5 +175,18 @@ public abstract class BaseFragment extends Fragment implements UIDataDelegate
         }
         toast.setText(msg);
         toast.show();
+    }
+    
+    /**
+     * 这个的存在，是为了,内置一个刷新机制
+     * @param message
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void ReloadData(Message message)
+    {
+        if(Message.TYPE.FRESH.equals(message.Type))
+        {
+            loadData();
+        }
     }
 }

@@ -3,11 +3,8 @@ package com.xiaolei.easyfreamwork.application;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
-import android.support.v4.content.LocalBroadcastManager;
 
 import com.xiaolei.easyfreamwork.Config.Config;
-import com.xiaolei.easyfreamwork.Config.Globals;
 
 import java.net.CookieStore;
 
@@ -42,32 +39,8 @@ public class ApplicationBreage implements IApp
     {
         instance.application = iApp;
     }
-    /**
-     * 发送刷新消息
-     *
-     * @param ACTION 消息类型 Globals.Action.REFRESH.*
-     */
-    public void sendRefreshAction(String ACTION)
-    {
-        sendRefreshAction(ACTION, true);
-    }
-
-    /**
-     * 发送刷新消息
-     *
-     * @param ACTION    消息类型 Globals.Action.REFRESH.*
-     * @param condition 刷新条件
-     */
-    public void sendRefreshAction(String ACTION, boolean condition)
-    {
-        if (condition)
-        {
-            Intent intent = new Intent(Globals.Action.RefreshRecever_Action);
-            intent.putExtra("ACTION", ACTION);
-            LocalBroadcastManager.getInstance(getInstance().getContext()).sendBroadcast(intent);
-        }
-    }
-
+    
+    
     @Override
     public void addActivity(Activity activity)
     {

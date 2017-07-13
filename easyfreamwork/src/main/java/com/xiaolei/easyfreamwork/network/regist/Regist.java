@@ -1,5 +1,6 @@
 package com.xiaolei.easyfreamwork.network.regist;
 
+import android.support.annotation.Nullable;
 import android.support.v4.util.ArrayMap;
 
 import com.xiaolei.easyfreamwork.annotations.OnCallBack;
@@ -42,8 +43,14 @@ public abstract class Regist<T>
         }
         return arrayMap.get(callBackStr);
     }
-    
-    public abstract String filter(T t);
+
+    /**
+     * 过滤器，作为一个结果过滤器，返回的结果应该是个字符串
+     * 如果不需要过滤，则返回的是一个 null 
+     * @param t
+     * @return
+     */
+    public abstract @Nullable String filter(T t);
     
     
 }

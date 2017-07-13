@@ -1,9 +1,6 @@
 package com.xiaolei.easyfreamwork.network.interceptor;
 
 
-import com.xiaolei.easyfreamwork.application.ApplicationBreage;
-import com.xiaolei.easyfreamwork.utils.VersionUtil;
-
 import java.io.IOException;
 import java.util.Map;
 

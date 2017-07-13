@@ -5,14 +5,10 @@ import android.app.Application;
 import android.content.Context;
 
 import com.xiaolei.easyfreamwork.Config.Config;
-import com.xiaolei.easyfreamwork.annotations.OnCallBack;
 import com.xiaolei.easyfreamwork.application.ApplicationBreage;
 import com.xiaolei.easyfreamwork.application.IApp;
 import com.xiaolei.easyfreamwork.network.BaseNetCore;
-import com.xiaolei.easyfreamwork.network.common.SICallBack;
-import com.xiaolei.easyfreamwork.network.regist.Regist;
 import com.xiaolei.easyfreamwork.network.regist.RegisteTable;
-import com.xiaolei.easyfreamwork.utils.Log;
 
 import java.net.CookieStore;
 import java.util.ArrayList;
@@ -89,20 +85,4 @@ public class APP extends Application implements IApp
         return this;
     }
     
-    
-    
-    public static class StringRegist extends Regist<String>
-    {
-        @Override
-        public String filter(String s)
-        {
-            return s;
-        }
-        @OnCallBack("/aaaa")
-        public void haveToLogin(Context context, SICallBack callBack)
-        {
-            Log.e("haveToLogin", "haveToLogin");
-        }
-    }
-
 }

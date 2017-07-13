@@ -1,6 +1,6 @@
 # EasyFreamTest
 ##介绍
->基于ButterKnife Retrofit RxJava oKHTTP，合理使用，并且自己定义一些机制，比如，断网机制，回调机制,CALBACK机制
+>基于ButterKnife Retrofit RxJava oKHTTP EventBus，合理使用，并且自己定义一些机制，比如，断网机制，回调机制,CALBACK机制
 消息机制，刷新机制，登录机制，cookie支持，RXJAVA与Retrofit.Call完美兼容，注解式刷新机制。注解式回调机制。
 
 ##配置
@@ -121,5 +121,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.jakewharton:butterknife:8.5.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    compile 'org.greenrobot:eventbus:3.0.0'
 }
 ```

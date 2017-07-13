@@ -6,11 +6,9 @@ package com.xiaolei.easyfreamwork.base;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -19,14 +17,17 @@ import android.widget.Toast;
 
 import com.xiaolei.easyfreamwork.application.ApplicationBreage;
 import com.xiaolei.easyfreamwork.common.listeners.Action;
-import com.xiaolei.easyfreamwork.receiver.RefreshRecever;
+import com.xiaolei.easyfreamwork.eventbus.Message;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseV4Activity extends FragmentActivity implements UIDataDelegate
+public abstract class BaseV4Activity extends FragmentActivity
 {
     protected Handler handler = null;
-    private RefreshRecever recever;
     private AlertDialog.Builder builder;
     private Toast toast;
     
@@ -37,8 +38,7 @@ public abstract class BaseV4Activity extends FragmentActivity implements UIDataD
         handler = new Handler();
         ApplicationBreage.getInstance().addActivity(this);
         Log.d("BaseActivity", this.getClass().getName() + ":onCreate");
-        recever = new RefreshRecever(this);
-        LocalBroadcastManager.getInstance(this).registerReceiver(recever, new IntentFilter(RefreshRecever.ACTION));
+        EventBus.getDefault().register(this);
         builder = new AlertDialog.Builder(this);
     }
 
@@ -96,7 +96,7 @@ public abstract class BaseV4Activity extends FragmentActivity implements UIDataD
     @Override
     protected void onDestroy()
     {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(recever);
+        EventBus.getDefault().unregister(this);
         handler.removeCallbacksAndMessages(null);
         ApplicationBreage.getInstance().removeActivity(this);
         super.onDestroy();
@@ -163,4 +163,16 @@ public abstract class BaseV4Activity extends FragmentActivity implements UIDataD
         startActivity(intent);
     }
     
+    /**
+     * 这个的存在，是为了,内置一个刷新机制
+     * @param message
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void ReloadData(Message message)
+    {
+        if(Message.TYPE.FRESH.equals(message.Type))
+        {
+            loadData();
+        }
+    }
 }

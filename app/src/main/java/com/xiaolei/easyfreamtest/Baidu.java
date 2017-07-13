@@ -9,6 +9,6 @@ import rx.Observable;
 
 public interface Baidu
 {
-    @GET("s")
+    @GET("s?word=java")
     Observable<String> getIndex();
 }

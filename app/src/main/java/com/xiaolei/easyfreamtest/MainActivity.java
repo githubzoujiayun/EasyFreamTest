@@ -13,6 +13,8 @@ import com.xiaolei.easyfreamwork.base.BaseActivity;
 import com.xiaolei.easyfreamwork.network.BaseRetrofit;
 import com.xiaolei.easyfreamwork.network.common.SCallBack;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import butterknife.BindView;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -74,8 +76,7 @@ public class MainActivity extends BaseActivity
         Alert("OnLoginAction");
     }
 
-    int a = 0;
-
+    
     @Override
     public void loadData()
     {
