@@ -186,6 +186,7 @@ public abstract class BaseFragment extends Fragment
     {
         if(Message.TYPE.FRESH.equals(message.Type))
         {
+            Log.e(TAG,"ReloadData");
             loadData();
         }
     }

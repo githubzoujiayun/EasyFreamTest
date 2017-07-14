@@ -5,8 +5,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.xiaolei.easyfreamwork.Config.Config;
-
-import java.net.CookieStore;
+import com.xiaolei.easyfreamwork.network.OKhttp.PersistentCookieStore;
 
 import retrofit2.Retrofit;
 
@@ -63,18 +62,6 @@ public class ApplicationBreage implements IApp
     public Application getApplication()
     {
         return application.getApplication();
-    }
-
-    @Override
-    public Retrofit getRetrofit()
-    {
-        return application.getRetrofit();
-    }
-
-    @Override
-    public CookieStore getCookieStore()
-    {
-        return application.getCookieStore();
     }
 
     @Override

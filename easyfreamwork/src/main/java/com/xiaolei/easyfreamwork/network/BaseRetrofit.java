@@ -11,7 +11,7 @@ public class BaseRetrofit
 {
     public static <T> T create(Class<T> klass)
     {
-        return ApplicationBreage.getInstance().getRetrofit().create(klass);
+        return BaseNetCore.getInstance().getRetrofit().create(klass);
     }
 
     /**
@@ -20,12 +20,13 @@ public class BaseRetrofit
     public enum COOKIE
     {
         INSTANCE;
+
         /**
          * 清空cookie
          */
         public void clearAll()
         {
-            ApplicationBreage.getInstance().getCookieStore().removeAll();
+            BaseNetCore.getInstance().getCookiemanager().getCookieStore().removeAll();
         }
     }
 }

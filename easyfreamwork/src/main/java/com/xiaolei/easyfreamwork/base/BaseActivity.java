@@ -175,6 +175,7 @@ public abstract class BaseActivity extends Activity
     {
         if(Message.TYPE.FRESH.equals(message.Type))
         {
+            Log.e(TAG,"ReloadData");
             loadData();
         }
     }

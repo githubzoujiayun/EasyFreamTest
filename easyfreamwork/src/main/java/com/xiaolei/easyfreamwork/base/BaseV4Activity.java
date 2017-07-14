@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -18,6 +17,7 @@ import android.widget.Toast;
 import com.xiaolei.easyfreamwork.application.ApplicationBreage;
 import com.xiaolei.easyfreamwork.common.listeners.Action;
 import com.xiaolei.easyfreamwork.eventbus.Message;
+import com.xiaolei.easyfreamwork.utils.Log;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -30,14 +30,14 @@ public abstract class BaseV4Activity extends FragmentActivity
     protected Handler handler = null;
     private AlertDialog.Builder builder;
     private Toast toast;
-    
+    private String TAG = "BaseV4Activity";
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         handler = new Handler();
         ApplicationBreage.getInstance().addActivity(this);
-        Log.d("BaseActivity", this.getClass().getName() + ":onCreate");
+        Log.d(TAG, this.getClass().getName() + ":onCreate");
         EventBus.getDefault().register(this);
         builder = new AlertDialog.Builder(this);
     }
@@ -172,6 +172,7 @@ public abstract class BaseV4Activity extends FragmentActivity
     {
         if(Message.TYPE.FRESH.equals(message.Type))
         {
+            Log.e(TAG,"ReloadData");
             loadData();
         }
     }

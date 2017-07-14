@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
 public abstract class BaseV4Fragment extends Fragment
 {
     protected Handler handler = null;
-    protected final String TAG = "BaseFragment";
+    protected final String TAG = "BaseV4Fragment";
     protected Toast toast = null;
     private View contentView = null;
     private AlertDialog.Builder builder;
@@ -180,6 +180,7 @@ public abstract class BaseV4Fragment extends Fragment
     {
         if(Message.TYPE.FRESH.equals(message.Type))
         {
+            Log.e(TAG,"ReloadData");
             loadData();
         }
     }

@@ -8,8 +8,13 @@ import android.widget.TextView;
 
 import com.xiaolei.easyfreamwork.Config.Globals;
 import com.xiaolei.easyfreamwork.base.BaseActivity;
+import com.xiaolei.easyfreamwork.eventbus.Message;
 import com.xiaolei.easyfreamwork.network.BaseRetrofit;
 import com.xiaolei.easyfreamwork.network.common.SCallBack;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import rx.Observable;
@@ -65,7 +70,8 @@ public class MainActivity extends BaseActivity
         Alert("OnRefreshAction");
     }
     
-    public void OnLoginAction()
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void OnLoginAction(Message message)
     {
         Alert("OnLoginAction");
     }
@@ -84,13 +90,10 @@ public class MainActivity extends BaseActivity
                     public void onSuccess(String result) throws Exception
                     {
                         Log.e("MainActivity", "加载完成了？");
-                        Intent intent = new Intent(Globals.Action.RefreshRecever_Action);
-                        intent.putExtra("ACTION", Globals.Action.REFRESH.REFRESH);
-                        LocalBroadcastManager.getInstance(MainActivity.this).sendBroadcast(intent);
-
-                        Intent intent2 = new Intent(Globals.Action.RefreshRecever_Action);
-                        intent2.putExtra("ACTION", Globals.Action.REFRESH.LOGIN);
-                        LocalBroadcastManager.getInstance(MainActivity.this).sendBroadcast(intent2);
+                        EventBus.getDefault().post(new Message()
+                        {
+                            
+                        });
                     }
                 });
     }

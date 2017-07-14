@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
-import java.net.CookieStore;
 
 import retrofit2.Retrofit;
 
@@ -18,8 +17,6 @@ public interface IApp
     void removeActivity(Activity activity);
     void removeAllActivity();
     Application getApplication();
-    Retrofit getRetrofit();
-    CookieStore getCookieStore();
     Context getApplicationContext();
     Context getContext();
     public boolean hasNetworkError = false;
