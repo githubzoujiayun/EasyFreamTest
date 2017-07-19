@@ -42,6 +42,7 @@ public abstract class BaseV4Fragment extends Fragment
         super.onCreate(savedInstanceState);
         builder = new AlertDialog.Builder(getActivity());
         EventBus.getDefault().register(this);
+        initObj();
     }
 
     @Override
@@ -51,6 +52,10 @@ public abstract class BaseV4Fragment extends Fragment
         if (contentView == null)
         {
             contentView = inflater.inflate(contentViewId(), null);
+            ButterKnife.bind(this, contentView);
+            initData();
+            initView();
+            setListener();
         }
         return contentView;
     }
@@ -61,11 +66,6 @@ public abstract class BaseV4Fragment extends Fragment
         Log.d(TAG, this.getClass().getName() + ":onActivityCreated");
         handler = new Handler();
         onSetContentView();
-        initObj();
-        initData();
-        ButterKnife.bind(this, getView());
-        initView();
-        setListener();
         loadData();
         super.onActivityCreated(savedInstanceState);
     }
