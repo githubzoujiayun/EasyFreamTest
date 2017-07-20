@@ -1,6 +1,9 @@
 apply plugin: 'com.android.library'
-apply plugin: 'maven'
-apply plugin: 'com.novoda.bintray-release'
+// JitPack Maven
+apply plugin: 'com.github.dcendents.android-maven'
+// Your Group
+group='com.github.xiaolei123'
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
@@ -17,20 +20,6 @@ android {
             minifyEnabled false
         }
     }
-    productFlavors {
-    }
-    lintOptions {
-        abortOnError false
-        checkReleaseBuilds false
-    }
-}
-publish {
-    userOrg = 'kavipyouxiang'// 用户所在组织,好像是用
-    groupId = 'com.xiaolei'// 包名
-    artifactId = 'easyfreamwork'// library的名字
-    version = '1.3.3'// 版本
-    description = 'android freamwork'
-    website = "https://github.com/xiaolei123/EasyFreamTest"
 }
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
