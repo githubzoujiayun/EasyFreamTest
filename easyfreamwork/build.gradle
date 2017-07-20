@@ -28,7 +28,7 @@ publish {
     userOrg = 'kavipyouxiang'// 用户所在组织,好像是用
     groupId = 'com.xiaolei'// 包名
     artifactId = 'easyfreamwork'// library的名字
-    version = '1.3.2'// 版本
+    version = '1.3.3'// 版本
     description = 'android freamwork'
     website = "https://github.com/xiaolei123/EasyFreamTest"
 }
