@@ -10,13 +10,18 @@ dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
         classpath 'com.jakewharton:butterknife-gradle-plugin:8.5.1'
     }
+repositories {
+        jcenter()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
 ```
 
 >  2.在build.gradle(Module)里配置
 ```gradle
 dependencies {
     compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.xiaolei:easyfreamwork:1.1.0'
+    compile 'com.github.xiaolei123:EasyFreamTest:+'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }
 ```
