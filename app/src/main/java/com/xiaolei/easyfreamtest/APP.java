@@ -7,7 +7,6 @@ import android.content.Context;
 import com.xiaolei.easyfreamwork.Config.Config;
 import com.xiaolei.easyfreamwork.application.ApplicationBreage;
 import com.xiaolei.easyfreamwork.application.IApp;
-import com.xiaolei.easyfreamwork.network.regist.RegisteTable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,11 +26,11 @@ public class APP extends Application implements IApp
         Config config = new Config();
         config.setDEBUG(true);
         config.setBaseUrl("http://www.baidu.com/");
+        config.regist(String.class, StringRegist.class);
         Map<String, String> head = new HashMap<>();
         head.put("from", "xiaolei");
         config.setNetHeadeMap(head);
         ApplicationBreage.getInstance().initApplication(this, config);
-        RegisteTable.getInstance().regist(String.class, StringRegist.class);
         super.onCreate();
     }
 
