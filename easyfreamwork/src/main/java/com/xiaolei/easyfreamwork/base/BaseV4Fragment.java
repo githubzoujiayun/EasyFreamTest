@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.xiaolei.easyfreamwork.common.listeners.Action;
-import com.xiaolei.easyfreamwork.eventbus.Message;
 import com.xiaolei.easyfreamwork.utils.Log;
 
 import org.greenrobot.eventbus.EventBus;
@@ -176,12 +176,9 @@ public abstract class BaseV4Fragment extends Fragment
      * @param message
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void ReloadData(Message message)
+    public void onPrivateEvent(Message message)
     {
-        if(Message.TYPE.FRESH.equals(message.Type))
-        {
-            Log.e(TAG,"ReloadData");
-            loadData();
-        }
+        onEvent(message);
     }
+    public void onEvent(Message msg){  }
 }

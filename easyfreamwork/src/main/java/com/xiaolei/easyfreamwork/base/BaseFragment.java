@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -14,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.xiaolei.easyfreamwork.common.listeners.Action;
-import com.xiaolei.easyfreamwork.eventbus.Message;
 import com.xiaolei.easyfreamwork.utils.Log;
 
 import org.greenrobot.eventbus.EventBus;
@@ -176,18 +176,15 @@ public abstract class BaseFragment extends Fragment
         toast.setText(msg);
         toast.show();
     }
-    
+
     /**
      * 这个的存在，是为了,内置一个刷新机制
      * @param message
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void ReloadData(Message message)
+    public void onPrivateEvent(Message message)
     {
-        if(Message.TYPE.FRESH.equals(message.Type))
-        {
-            Log.e(TAG,"ReloadData");
-            loadData();
-        }
+        onEvent(message);
     }
+    public void onEvent(Message msg){  }
 }

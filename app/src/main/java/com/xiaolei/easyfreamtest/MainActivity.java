@@ -1,14 +1,10 @@
 package com.xiaolei.easyfreamtest;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.xiaolei.easyfreamwork.Config.Globals;
 import com.xiaolei.easyfreamwork.base.BaseActivity;
-import com.xiaolei.easyfreamwork.eventbus.Message;
 import com.xiaolei.easyfreamwork.network.BaseRetrofit;
 import com.xiaolei.easyfreamwork.network.common.SCallBack;
 
@@ -65,21 +61,13 @@ public class MainActivity extends BaseActivity
         Log.e("MainActivity", "setListener");
     }
 
-    public void OnRefreshAction()
-    {
-        Alert("OnRefreshAction");
-    }
-    
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void OnLoginAction(Message message)
-    {
-        Alert("OnLoginAction");
-    }
-
     
     @Override
     public void loadData()
     {
+        android.os.Message message = new android.os.Message();
+        
+        
         Log.e("MainActivity", "loadData");
         Observable<String> call = baidu.getIndex();
         call.subscribeOn(Schedulers.newThread())
@@ -90,12 +78,19 @@ public class MainActivity extends BaseActivity
                     public void onSuccess(String result) throws Exception
                     {
                         Log.e("MainActivity", "加载完成了？");
-                        EventBus.getDefault().post(new Message()
-                        {
-                            
-                        });
+                        android.os.Message message1 = new android.os.Message();
+                        message1.what = 1;
+                        message1.obj = "是啊";
+                        EventBus.getDefault().post(message1);
                     }
                 });
+    }
+
+    
+    @Override
+    public void onEvent(android.os.Message message)
+    {
+        Toast(message.obj+"");
     }
 
     public <T> T F(int id)

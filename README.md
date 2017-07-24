@@ -13,7 +13,7 @@ dependencies {
 repositories {
         jcenter()
         mavenCentral()
-        maven { url 'https://jitpack.io' }
+        maven { url 'https://dl.bintray.com/kavipyouxiang/maven' }
     }
 ```
 
@@ -21,7 +21,7 @@ repositories {
 ```gradle
 dependencies {
     compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.github.xiaolei123:EasyFreamTest:+'
+    compile 'com.xiaolei:easyfreamtest:+'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }
 ```
@@ -109,9 +109,36 @@ public class APP extends Application implements IApp
             Log.e("haveToLogin", "haveToLogin");
         }
     }
-
 }
+
 ```
+
+##介绍
+> 因为依赖了很多第三方的东西，所以其实我只是做一个集合而已，自己用的舒服。这里介绍一下怎么使用
+> #####findViewByid  以及对UI的操作，可以直接使用Retrofit
+>这里需要对Retrofit有一个了解
+> ```java
+>    @BindView(R.id.text)
+>    TextView text;
+>    @butterknife.OnClick
+>    public void Click1(View v){} 
+> ```
+>
+>#####网络请求
+> 这里需要一些Retrofit的知识
+>```java
+>BaseRetrofit.create(Baidu.class);
+>```
+>#####刷新机制，比如登录，退出登录，或者什么什么情况下，需要做什么事情
+>这里用的是EventBus来实现的,只需要重写这个方法
+>```java
+>public void onEvent(android.os.Message message)
+>```
+>发送消息使用EventBus原生的API
+>```java
+>EventBus.getDefault().post(message1);
+>```
+
 ##使用到的库
 ```gradle
 dependencies {
