@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
 
 public abstract class BaseV4Fragment extends Fragment
 {
-    protected Handler handler = null;
+    protected Handler handler = new Handler();
     protected final String TAG = "BaseV4Fragment";
     protected Toast toast = null;
     private View contentView = null;
@@ -65,7 +65,6 @@ public abstract class BaseV4Fragment extends Fragment
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
     {
         Log.d(TAG, this.getClass().getName() + ":onActivityCreated");
-        handler = new Handler();
         onSetContentView();
         super.onActivityCreated(savedInstanceState);
     }
