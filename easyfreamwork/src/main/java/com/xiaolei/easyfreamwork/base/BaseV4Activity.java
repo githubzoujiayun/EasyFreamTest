@@ -52,6 +52,7 @@ public abstract class BaseV4Activity extends FragmentActivity
         ButterKnife.bind(this);
         initView();
         setListener();
+        loadData();
     }
 
     @Override
@@ -64,6 +65,7 @@ public abstract class BaseV4Activity extends FragmentActivity
         ButterKnife.bind(this);
         initView();
         setListener();
+        loadData();
     }
 
     @Override
@@ -76,12 +78,6 @@ public abstract class BaseV4Activity extends FragmentActivity
         ButterKnife.bind(this);
         initView();
         setListener();
-    }
-    
-    @Override
-    protected void onStart()
-    {
-        super.onStart();
         loadData();
     }
 

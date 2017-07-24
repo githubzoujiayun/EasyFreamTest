@@ -56,6 +56,7 @@ public abstract class BaseFragment extends Fragment
             initData();
             initView();
             setListener();
+            loadData();
         }
         return contentView;
     }
@@ -66,7 +67,6 @@ public abstract class BaseFragment extends Fragment
         handler = new Handler();
         Log.d(TAG, this.getClass().getName() + ":onActivityCreated");
         onSetContentView();
-        loadData();
         super.onActivityCreated(savedInstanceState);
     }
 

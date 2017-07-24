@@ -53,6 +53,7 @@ public abstract class BaseActivity extends Activity
         ButterKnife.bind(this);
         initView();
         setListener();
+        loadData();
     }
 
     @Override
@@ -65,6 +66,7 @@ public abstract class BaseActivity extends Activity
         ButterKnife.bind(this);
         initView();
         setListener();
+        loadData();
     }
 
     @Override
@@ -77,12 +79,6 @@ public abstract class BaseActivity extends Activity
         ButterKnife.bind(this);
         initView();
         setListener();
-    }
-
-    @Override
-    protected void onStart()
-    {
-        super.onStart();
         loadData();
     }
 

@@ -56,6 +56,7 @@ public abstract class BaseV4Fragment extends Fragment
             initData();
             initView();
             setListener();
+            loadData();
         }
         return contentView;
     }
@@ -66,7 +67,6 @@ public abstract class BaseV4Fragment extends Fragment
         Log.d(TAG, this.getClass().getName() + ":onActivityCreated");
         handler = new Handler();
         onSetContentView();
-        loadData();
         super.onActivityCreated(savedInstanceState);
     }
 
