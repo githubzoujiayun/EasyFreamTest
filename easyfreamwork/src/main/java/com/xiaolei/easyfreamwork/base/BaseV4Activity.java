@@ -31,6 +31,7 @@ public abstract class BaseV4Activity extends FragmentActivity
     private AlertDialog.Builder builder;
     private Toast toast;
     private String TAG = "BaseV4Activity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -136,11 +137,11 @@ public abstract class BaseV4Activity extends FragmentActivity
         builder.setTitle(title);
         builder.setMessage(obj + "");
         builder.setCancelable(false);
-        if(leftText != null)
+        if (leftText != null)
         {
             builder.setNeutralButton(leftText, leftListener);
         }
-        if(rightText != null)
+        if (rightText != null)
         {
             builder.setNegativeButton(rightText, rightListener);
         }
@@ -149,14 +150,14 @@ public abstract class BaseV4Activity extends FragmentActivity
 
     public void Toast(String msg)
     {
-        if(toast == null)
+        if (toast == null)
         {
-            toast = Toast.makeText(this,"",Toast.LENGTH_SHORT);
+            toast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
         }
         toast.setText(msg);
         toast.show();
     }
-    
+
     public void startActivity(Class<? extends Activity> klass)
     {
         Intent intent = new Intent(this, klass);
@@ -165,6 +166,7 @@ public abstract class BaseV4Activity extends FragmentActivity
 
     /**
      * 这个的存在，是为了,内置一个刷新机制
+     *
      * @param message
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -172,5 +174,16 @@ public abstract class BaseV4Activity extends FragmentActivity
     {
         onEvent(message);
     }
-    public void onEvent(Message msg){  }
+
+    public void onEvent(Message msg)
+    {
+    }
+    /**
+     * 发送一个消息
+     * @param message
+     */
+    public void post(Message message)
+    {
+        EventBus.getDefault().post(message);
+    }
 }

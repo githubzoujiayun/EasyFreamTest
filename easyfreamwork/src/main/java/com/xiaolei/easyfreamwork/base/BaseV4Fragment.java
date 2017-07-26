@@ -97,7 +97,9 @@ public abstract class BaseV4Fragment extends Fragment
         super.onDestroy();
     }
 
-    public abstract @LayoutRes int contentViewId();
+    public abstract
+    @LayoutRes
+    int contentViewId();
 
     public abstract void initObj();
 
@@ -170,8 +172,16 @@ public abstract class BaseV4Fragment extends Fragment
         toast.show();
     }
 
+    @Nullable
+    @Override
+    public View getView()
+    {
+        return contentView;
+    }
+
     /**
      * 这个的存在，是为了,内置一个刷新机制
+     *
      * @param message
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -179,5 +189,18 @@ public abstract class BaseV4Fragment extends Fragment
     {
         onEvent(message);
     }
-    public void onEvent(Message msg){  }
+
+    public void onEvent(Message msg)
+    {
+    }
+
+    /**
+     * 发送一个消息
+     *
+     * @param message
+     */
+    public void post(Message message)
+    {
+        EventBus.getDefault().post(message);
+    }
 }

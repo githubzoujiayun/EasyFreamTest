@@ -175,7 +175,7 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
         }
     }
 
-    protected void Alert(final Object obj)
+    private void Alert(final Object obj)
     {
         Observable.just(obj)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -219,7 +219,10 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
                                 builder.setNegativeButton("确定", null);
 
                                 AlertDialog dialog = builder.create();
-                                dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
+                                if(dialog.getWindow() != null)
+                                {
+                                    dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
+                                }
                                 dialog.show();
                             }
                         }

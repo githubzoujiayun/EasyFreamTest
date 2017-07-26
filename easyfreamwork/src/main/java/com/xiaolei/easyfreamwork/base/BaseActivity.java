@@ -91,7 +91,7 @@ public abstract class BaseActivity extends Activity
     public abstract void initView();
 
     public abstract void setListener();
-    
+
     public abstract void loadData();
 
     @Override
@@ -101,7 +101,7 @@ public abstract class BaseActivity extends Activity
         handler.removeCallbacksAndMessages(null);
         ApplicationBreage.getInstance().removeActivity(this);
         EventBus.getDefault().unregister(this);
-        
+
         super.onDestroy();
     }
 
@@ -119,7 +119,7 @@ public abstract class BaseActivity extends Activity
     {
         Alert(obj, null, null, rightText, rightListener);
     }
-    
+
     public void Alert(Object obj
             , String leftText
             , Action leftListener
@@ -165,9 +165,10 @@ public abstract class BaseActivity extends Activity
         toast.setText(msg);
         toast.show();
     }
-    
+
     /**
      * 这个的存在，是为了,内置一个刷新机制
+     *
      * @param message
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -175,7 +176,17 @@ public abstract class BaseActivity extends Activity
     {
         onEvent(message);
     }
-    
-    public void onEvent(Message msg){  }
-    
+
+    public void onEvent(Message msg)
+    {
+    }
+
+    /**
+     * 发送一个消息
+     * @param message
+     */
+    public void post(Message message)
+    {
+        EventBus.getDefault().post(message);
+    }
 }

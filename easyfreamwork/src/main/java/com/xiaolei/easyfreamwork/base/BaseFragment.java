@@ -34,22 +34,22 @@ public abstract class BaseFragment extends Fragment
     protected Toast toast = null;
     private View contentView = null;
     private AlertDialog.Builder builder;
-    
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
-        Log.e(TAG,this.getClass().getName() + ":onCreate");
+        Log.e(TAG, this.getClass().getName() + ":onCreate");
         super.onCreate(savedInstanceState);
         builder = new AlertDialog.Builder(getActivity());
         EventBus.getDefault().register(this);
         initObj();
     }
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        Log.e(TAG,this.getClass().getName() + ":onCreateView");
-        if(contentView == null)
+        Log.e(TAG, this.getClass().getName() + ":onCreateView");
+        if (contentView == null)
         {
             contentView = inflater.inflate(contentViewId(), null);
             ButterKnife.bind(this, contentView);
@@ -60,7 +60,7 @@ public abstract class BaseFragment extends Fragment
         }
         return contentView;
     }
-    
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
     {
@@ -78,10 +78,11 @@ public abstract class BaseFragment extends Fragment
         }
         super.onHiddenChanged(hidden);
     }
-    
-    public abstract @LayoutRes
+
+    public abstract
+    @LayoutRes
     int contentViewId();
-    
+
     public abstract void initObj();
 
     public abstract void initData();
@@ -100,13 +101,13 @@ public abstract class BaseFragment extends Fragment
         Log.d(TAG, this.getClass().getName() + ":onDestroyView");
         super.onDestroyView();
     }
-    
+
     @Override
     public void onDestroy()
     {
         Log.d(TAG, this.getClass().getName() + ":onDestroy");
         handler.removeCallbacksAndMessages(null);
-        EventBus.getDefault().unregister(this);        
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
@@ -144,11 +145,11 @@ public abstract class BaseFragment extends Fragment
         builder.setTitle(title);
         builder.setMessage(obj + "");
         builder.setCancelable(false);
-        if(leftText != null)
+        if (leftText != null)
         {
             builder.setNeutralButton(leftText, leftListener);
         }
-        if(rightText != null)
+        if (rightText != null)
         {
             builder.setNegativeButton(rightText, rightListener);
         }
@@ -168,16 +169,24 @@ public abstract class BaseFragment extends Fragment
 
     public void Toast(String msg)
     {
-        if(toast == null)
+        if (toast == null)
         {
-            toast = Toast.makeText(getActivity(),"",Toast.LENGTH_SHORT);
+            toast = Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT);
         }
         toast.setText(msg);
         toast.show();
     }
 
+    @Nullable
+    @Override
+    public View getView()
+    {
+        return contentView;
+    }
+
     /**
      * 这个的存在，是为了,内置一个刷新机制
+     *
      * @param message
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -185,5 +194,16 @@ public abstract class BaseFragment extends Fragment
     {
         onEvent(message);
     }
-    public void onEvent(Message msg){  }
+
+    public void onEvent(Message msg)
+    {
+    }
+    /**
+     * 发送一个消息
+     * @param message
+     */
+    public void post(Message message)
+    {
+        EventBus.getDefault().post(message);
+    }
 }
