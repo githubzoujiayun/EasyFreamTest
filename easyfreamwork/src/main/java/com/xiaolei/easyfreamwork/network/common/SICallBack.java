@@ -139,6 +139,7 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
                             }
                             method.invoke(registObj, new Object[]{context.get(), this});
                         }
+                        return ;
                     }
                 }
             }
