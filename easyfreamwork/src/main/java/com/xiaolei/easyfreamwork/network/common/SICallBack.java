@@ -133,13 +133,29 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
                         Method method = registObj.getMethod(callback);
                         if (method != null)
                         {
+                            Class paramTypes[] = method.getParameterTypes();
+                            Object objs[] = new Object[paramTypes.length];
+                            for (int i = 0; i < paramTypes.length; i++)
+                            {
+                                Class paramtype = paramTypes[i];
+                                if (paramtype == Context.class)
+                                {
+                                    objs[i] = context.get();
+                                }else if(paramtype.isInstance(bodyBean))
+                                {
+                                    objs[i] = bodyBean;
+                                }else 
+                                {
+                                    objs[i] = null;
+                                }
+                            }
                             if (!method.isAccessible())
                             {
                                 method.setAccessible(true);
                             }
-                            method.invoke(registObj, new Object[]{context.get(), this});
+                            method.invoke(registObj, objs);
                         }
-                        return ;
+                        return;
                     }
                 }
             }
@@ -220,7 +236,7 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
                                 builder.setNegativeButton("确定", null);
 
                                 AlertDialog dialog = builder.create();
-                                if(dialog.getWindow() != null)
+                                if (dialog.getWindow() != null)
                                 {
                                     dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
                                 }
