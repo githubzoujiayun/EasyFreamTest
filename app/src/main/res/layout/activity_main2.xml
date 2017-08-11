@@ -16,6 +16,6 @@
         android:layout_weight="0.37"
         android:background="#f0f0f0"
         android:gravity="center"
-        android:text="第一个界面"/>
+        android:text="第二个界面"/>
 
 </LinearLayout>

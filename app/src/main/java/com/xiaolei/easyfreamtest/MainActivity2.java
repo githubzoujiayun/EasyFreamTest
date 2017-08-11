@@ -1,23 +1,16 @@
 package com.xiaolei.easyfreamtest;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import com.xiaolei.easyfreamwork.Sliding.SlidingActivity;
 
-import butterknife.BindView;
-import butterknife.OnClick;
-
-public class MainActivity extends SlidingActivity
+public class MainActivity2 extends SlidingActivity
 {
-    @BindView(R.id.text)
-    TextView text;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
     }
 
     @Override
@@ -29,7 +22,7 @@ public class MainActivity extends SlidingActivity
     @Override
     public void initObj()
     {
-        
+
     }
 
     @Override
@@ -54,18 +47,5 @@ public class MainActivity extends SlidingActivity
     public void loadData()
     {
 
-    }
-    
-    @OnClick(R.id.text)
-    public void setOnClick()
-    {
-        Intent intent = new Intent(MainActivity.this,MainActivity2.class);
-        startActivity(intent);
-    }
-
-    @Override
-    protected boolean enableSliding()
-    {
-        return false;
     }
 }

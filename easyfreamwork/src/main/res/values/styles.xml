@@ -1,0 +1,28 @@
+<resources>
+
+    
+    <style name="LibAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!--Required-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/AppTheme.Slide.Animation</item>
+    </style>
+
+    <style name="AppTheme.Slide.Animation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_slide_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/anim_slide_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/anim_slide_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/anim_slide_out</item>
+        
+        <item name="android:taskOpenEnterAnimation">@anim/on_activity_open</item>
+        <item name="android:taskOpenExitAnimation">@anim/on_activity_puse</item>
+        <item name="android:taskCloseEnterAnimation">@anim/on_activity_reopen</item>
+        <item name="android:taskCloseExitAnimation">@anim/on_activity_close</item>
+        <!-- 下面的是实验性属性 -->
+        <item name="android:taskToFrontEnterAnimation">@anim/on_activity_open</item>
+        <item name="android:taskToFrontExitAnimation">@anim/on_activity_close</item>
+        <item name="android:taskToBackEnterAnimation">@anim/on_activity_reopen</item>
+        <item name="android:taskToBackExitAnimation">@anim/on_activity_close</item>
+        
+    </style>
+</resources>
