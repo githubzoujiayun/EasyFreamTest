@@ -9,11 +9,10 @@
     </style>
 
     <style name="AppTheme.Slide.Animation" parent="@android:style/Animation.Activity">
-        <item name="android:activityOpenEnterAnimation">@anim/anim_slide_in</item>
-        <item name="android:activityOpenExitAnimation">@anim/anim_slide_out</item>
-        <item name="android:activityCloseEnterAnimation">@anim/anim_slide_in</item>
-        <item name="android:activityCloseExitAnimation">@anim/anim_slide_out</item>
-        
+        <item name="android:activityOpenEnterAnimation">@anim/on_activity_open</item>
+        <item name="android:activityOpenExitAnimation">@anim/on_activity_puse</item>
+        <item name="android:activityCloseEnterAnimation">@anim/on_activity_reopen</item>
+        <item name="android:activityCloseExitAnimation">@anim/on_activity_close</item>
         <item name="android:taskOpenEnterAnimation">@anim/on_activity_open</item>
         <item name="android:taskOpenExitAnimation">@anim/on_activity_puse</item>
         <item name="android:taskCloseEnterAnimation">@anim/on_activity_reopen</item>

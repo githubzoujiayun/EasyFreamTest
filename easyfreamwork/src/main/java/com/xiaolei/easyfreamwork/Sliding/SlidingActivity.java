@@ -54,8 +54,8 @@ public abstract class SlidingActivity extends AppCompatActivity
         initObj();
         initData();
         super.setContentView(view);
-        onSetContentView();
         ButterKnife.bind(this);
+        onSetContentView();
         initView();
         setListener();
         loadData();
@@ -67,8 +67,8 @@ public abstract class SlidingActivity extends AppCompatActivity
         initObj();
         initData();
         super.setContentView(view, params);
-        onSetContentView();
         ButterKnife.bind(this);
+        onSetContentView();
         initView();
         setListener();
         loadData();
@@ -80,8 +80,8 @@ public abstract class SlidingActivity extends AppCompatActivity
         initObj();
         initData();
         super.setContentView(layoutResID);
-        onSetContentView();
         ButterKnife.bind(this);
+        onSetContentView();
         initView();
         setListener();
         loadData();

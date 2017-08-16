@@ -49,8 +49,8 @@ public abstract class BaseActivity extends Activity
         initObj();
         initData();
         super.setContentView(view);
-        onSetContentView();
         ButterKnife.bind(this);
+        onSetContentView();
         initView();
         setListener();
         loadData();
@@ -62,8 +62,8 @@ public abstract class BaseActivity extends Activity
         initObj();
         initData();
         super.setContentView(view, params);
-        onSetContentView();
         ButterKnife.bind(this);
+        onSetContentView();
         initView();
         setListener();
         loadData();
@@ -75,8 +75,8 @@ public abstract class BaseActivity extends Activity
         initObj();
         initData();
         super.setContentView(layoutResID);
-        onSetContentView();
         ButterKnife.bind(this);
+        onSetContentView();
         initView();
         setListener();
         loadData();
