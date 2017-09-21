@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.Scroller;
 
 import com.xiaolei.easyfreamwork.R;
+import com.xiaolei.easyfreamwork.utils.DensityUtil;
 
 /**
  * Created by chenyan.wang on 2015/10/29.
@@ -123,7 +124,7 @@ public class SlidingLayout extends FrameLayout
                 int deltaX = x - mLastTouchX;
                 int deltaY = y - mLastTouchY;
 
-                if (!isConsumed && mTouchDownX < (getWidth() / 10) && Math.abs(deltaX) > Math.abs(deltaY))
+                if (!isConsumed && mTouchDownX < /*(getWidth() / 10)*/ DensityUtil.dip2px(getContext(),15) && Math.abs(deltaX) > Math.abs(deltaY))
                 {
                     isConsumed = true;
                 }
