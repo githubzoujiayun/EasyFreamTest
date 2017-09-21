@@ -1,18 +1,12 @@
 package com.xiaolei.easyfreamtest;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
-
 import com.xiaolei.easyfreamwork.Sliding.SlidingActivity;
 
-import butterknife.BindView;
 import butterknife.OnClick;
 
 public class MainActivity extends SlidingActivity
 {
-    @BindView(R.id.text)
-    TextView text;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -23,7 +17,7 @@ public class MainActivity extends SlidingActivity
     @Override
     protected void onSetContentView()
     {
-        
+
     }
 
     @Override
@@ -47,7 +41,7 @@ public class MainActivity extends SlidingActivity
     @Override
     public void setListener()
     {
-
+        
     }
 
     @Override
@@ -56,13 +50,12 @@ public class MainActivity extends SlidingActivity
 
     }
     
-    @OnClick(R.id.text)
-    public void setOnClick()
+    @OnClick(R.id.button)
+    public void onclick()
     {
-        Intent intent = new Intent(MainActivity.this,MainActivity2.class);
-        startActivity(intent);
+        startActivity(MainActivity2.class);
     }
-
+    
     @Override
     protected boolean enableSliding()
     {

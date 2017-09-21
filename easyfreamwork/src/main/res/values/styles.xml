@@ -1,7 +1,7 @@
 <resources>
 
     
-    <style name="LibAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="LibAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!--Required-->
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
