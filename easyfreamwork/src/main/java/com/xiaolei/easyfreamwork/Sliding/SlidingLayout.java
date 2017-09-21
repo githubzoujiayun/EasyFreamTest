@@ -34,6 +34,7 @@ public class SlidingLayout extends FrameLayout
     private int mLastTouchX;
     private int mLastTouchY;
     private boolean isConsumed = false;
+    private int touChLeftDP = 10;
 
     public SlidingLayout(Context context)
     {
@@ -90,7 +91,8 @@ public class SlidingLayout extends FrameLayout
                 int deltaX = x - mLastInterceptX;
                 int deltaY = y - mLastInterceptY;
                 // 手指处于屏幕边缘，且横向滑动距离大于纵向滑动距离时，拦截事件
-                if (mInterceptDownX < (getWidth() / 10) && Math.abs(deltaX) > Math.abs(deltaY))
+                // if (mInterceptDownX < (getWidth() / 10) && Math.abs(deltaX) > Math.abs(deltaY))
+                if (mInterceptDownX < DensityUtil.dip2px(getContext(),touChLeftDP) && Math.abs(deltaX) > Math.abs(deltaY))
                 {
                     intercept = true;
                 } else
@@ -123,12 +125,17 @@ public class SlidingLayout extends FrameLayout
             case MotionEvent.ACTION_MOVE:
                 int deltaX = x - mLastTouchX;
                 int deltaY = y - mLastTouchY;
-
-                if (!isConsumed && mTouchDownX < /*(getWidth() / 10)*/ DensityUtil.dip2px(getContext(),15) && Math.abs(deltaX) > Math.abs(deltaY))
+                
+                if (!isConsumed && mTouchDownX <  DensityUtil.dip2px(getContext(),touChLeftDP) && Math.abs(deltaX) > Math.abs(deltaY))
                 {
                     isConsumed = true;
                 }
-
+                
+                // if (!isConsumed && mTouchDownX <  (getWidth() / 10) && Math.abs(deltaX) > Math.abs(deltaY))
+                // {
+                //     isConsumed = true;
+                // }
+                
                 if (isConsumed)
                 {
                     int rightMovedX = mLastTouchX - (int) ev.getX();
