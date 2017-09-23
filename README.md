@@ -13,7 +13,6 @@ dependencies {
 repositories {
         jcenter()
         mavenCentral()
-        maven { url 'https://dl.bintray.com/kavipyouxiang/maven' }
     }
 ```
 
@@ -21,7 +20,7 @@ repositories {
 ```gradle
 dependencies {
     compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.xiaolei:easyfreamtest:+'
+    compile 'com.xiaolei:easyfreamwork:1.3.5'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }
 ```
