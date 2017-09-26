@@ -1,6 +1,7 @@
 package com.xiaolei.easyfreamwork.base;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -38,6 +39,17 @@ public abstract class BaseActivity extends Activity
         super.onCreate(savedInstanceState);
         handler = new Handler();
         builder = new AlertDialog.Builder(this);
+        builder.setOnDismissListener(new DialogInterface.OnDismissListener()
+        {
+            @Override
+            public void onDismiss(DialogInterface dialog)
+            {
+                builder.setTitle("提示信息");
+                builder.setMessage("");
+                builder.setNeutralButton("取消", null);
+                builder.setNegativeButton("确认", null);
+            }
+        });
         ApplicationBreage.getInstance().addActivity(this);
         Log.d(TAG, klassName + ":onCreate");
         EventBus.getDefault().register(this);
