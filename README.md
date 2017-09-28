@@ -138,6 +138,51 @@ public class APP extends Application implements IApp
 >EventBus.getDefault().post(message1);
 >```
 
+>
+> 网络请求路由回调，<br/>
+> 我们网络请求，可能需要根据网络返回的数据自动进行路由的跳转<br/>
+> 那么可以使用 继承 Regist<T> <br/>
+> filter方法就是过滤的数据，@onCallBack()则是实际的过滤条件<br/>
+> 下面的例子就是，如果filter里返回的数据，如果刚好对上了onCallBack里定义的字符串，<br/>
+> 那么，这个方法就会被自动调用。
+> 示例如下：<br/>
+>
+```java
+    
+public class StringRegist extends Regist<String>
+{
+    @Override
+    public String filter(String s)
+    {
+        return s;
+    }
+
+    @OnCallBack("/aaaa")
+    public void haveToLogin(Context context, SICallBack callBack)
+    {
+        Log.e("haveToLogin", "haveToLogin");
+        Alert(context, "路由回调？？", new Action()
+        {
+            @Override
+            public void action()
+            {
+                
+            }
+        });
+    }
+}
+    
+```
+
+###如何使用这个网络回调路由呢？
+> 在APPlication初始化的时候，在这里注册响应的对象，以及相应对象的路由注册器
+```java
+
+com.xiaolei.easyfreamwork.Config.regist(String.class, StringRegist.class);
+
+```
+
+
 ##使用到的库
 ```gradle
 dependencies {

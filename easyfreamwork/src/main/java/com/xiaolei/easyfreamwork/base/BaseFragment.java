@@ -2,19 +2,19 @@ package com.xiaolei.easyfreamwork.base;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.xiaolei.easyfreamwork.Config.Config;
+import com.xiaolei.easyfreamwork.alert_dialog.CustomAlertDialog;
 import com.xiaolei.easyfreamwork.common.listeners.Action;
 import com.xiaolei.easyfreamwork.utils.Log;
 
@@ -34,25 +34,13 @@ public abstract class BaseFragment extends Fragment
     protected final String TAG = "BaseFragment";
     protected Toast toast = null;
     private View contentView = null;
-    private AlertDialog.Builder builder;
-
+    private CustomAlertDialog alertDialog;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         Log.e(TAG, this.getClass().getName() + ":onCreate");
         super.onCreate(savedInstanceState);
-        builder = new AlertDialog.Builder(getActivity());
-        builder.setOnDismissListener(new DialogInterface.OnDismissListener()
-        {
-            @Override
-            public void onDismiss(DialogInterface dialog)
-            {
-                builder.setTitle("提示信息");
-                builder.setMessage("");
-                builder.setNeutralButton("取消", null);
-                builder.setNegativeButton("确认", null);
-            }
-        });
+        alertDialog = new CustomAlertDialog(this, Config.dialog_layout);
         EventBus.getDefault().register(this);
         initObj();
     }
@@ -154,18 +142,7 @@ public abstract class BaseFragment extends Fragment
             , String rightText
             , Action rightListener)
     {
-        builder.setTitle(title);
-        builder.setMessage(obj + "");
-        builder.setCancelable(false);
-        if (leftText != null)
-        {
-            builder.setNeutralButton(leftText, leftListener);
-        }
-        if (rightText != null)
-        {
-            builder.setNegativeButton(rightText, rightListener);
-        }
-        builder.show();
+        alertDialog.Alert(title,obj,leftText,leftListener,rightText,rightListener);
     }
 
     public <T extends View> T findViewByID(int id)

@@ -1,16 +1,16 @@
 package com.xiaolei.easyfreamwork.base;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.xiaolei.easyfreamwork.Config.Config;
+import com.xiaolei.easyfreamwork.alert_dialog.CustomAlertDialog;
 import com.xiaolei.easyfreamwork.application.ApplicationBreage;
 import com.xiaolei.easyfreamwork.common.listeners.Action;
 import com.xiaolei.easyfreamwork.utils.Log;
@@ -18,6 +18,7 @@ import com.xiaolei.easyfreamwork.utils.Log;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 
 import butterknife.ButterKnife;
 
@@ -31,25 +32,13 @@ public abstract class BaseActivity extends Activity
     protected final String TAG = "BaseActivity";
     protected Toast toast = null;
     protected String klassName = this.getClass().getName();
-    private AlertDialog.Builder builder;
-
+    private CustomAlertDialog alertDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         handler = new Handler();
-        builder = new AlertDialog.Builder(this);
-        builder.setOnDismissListener(new DialogInterface.OnDismissListener()
-        {
-            @Override
-            public void onDismiss(DialogInterface dialog)
-            {
-                builder.setTitle("提示信息");
-                builder.setMessage("");
-                builder.setNeutralButton("取消", null);
-                builder.setNegativeButton("确认", null);
-            }
-        });
+        alertDialog = new CustomAlertDialog(this,Config.dialog_layout);
         ApplicationBreage.getInstance().addActivity(this);
         Log.d(TAG, klassName + ":onCreate");
         EventBus.getDefault().register(this);
@@ -148,18 +137,7 @@ public abstract class BaseActivity extends Activity
             , String rightText
             , Action rightListener)
     {
-        builder.setTitle(title);
-        builder.setMessage(obj + "");
-        builder.setCancelable(false);
-        if (leftText != null)
-        {
-            builder.setNeutralButton(leftText, leftListener);
-        }
-        if (rightText != null)
-        {
-            builder.setNegativeButton(rightText, rightListener);
-        }
-        builder.show();
+        alertDialog.Alert(title,obj,leftText,leftListener,rightText,rightListener);
     }
 
     public void startActivity(Class<? extends Activity> klass)

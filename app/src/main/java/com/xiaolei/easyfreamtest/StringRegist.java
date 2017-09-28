@@ -3,6 +3,7 @@ package com.xiaolei.easyfreamtest;
 import android.content.Context;
 
 import com.xiaolei.easyfreamwork.annotations.OnCallBack;
+import com.xiaolei.easyfreamwork.common.listeners.Action;
 import com.xiaolei.easyfreamwork.network.common.SICallBack;
 import com.xiaolei.easyfreamwork.network.regist.Regist;
 import com.xiaolei.easyfreamwork.utils.Log;
@@ -16,12 +17,20 @@ public class StringRegist extends Regist<String>
     @Override
     public String filter(String s)
     {
-        return "/aaaa";
+        return s;
     }
 
     @OnCallBack("/aaaa")
     public void haveToLogin(Context context, SICallBack callBack)
     {
         Log.e("haveToLogin", "haveToLogin");
+        Alert(context, "路由回调？？", new Action()
+        {
+            @Override
+            public void action()
+            {
+                
+            }
+        });
     }
 }

@@ -1,12 +1,20 @@
 package com.xiaolei.easyfreamtest;
 
 import android.os.Bundle;
-import com.xiaolei.easyfreamwork.Sliding.SlidingActivity;
+import android.util.Log;
+
+import com.xiaolei.easyfreamwork.base.BaseActivity;
+import com.xiaolei.easyfreamwork.common.listeners.Action;
+import com.xiaolei.easyfreamwork.network.BaseRetrofit;
+import com.xiaolei.easyfreamwork.network.common.SCallBack;
 
 import butterknife.OnClick;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
-public class MainActivity extends SlidingActivity
+public class MainActivity extends BaseActivity
 {
+    Baidu baidu;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -23,7 +31,7 @@ public class MainActivity extends SlidingActivity
     @Override
     public void initObj()
     {
-        
+        baidu = BaseRetrofit.create(Baidu.class);
     }
 
     @Override
@@ -41,7 +49,7 @@ public class MainActivity extends SlidingActivity
     @Override
     public void setListener()
     {
-        
+
     }
 
     @Override
@@ -49,16 +57,27 @@ public class MainActivity extends SlidingActivity
     {
 
     }
-    
+
     @OnClick(R.id.button)
     public void onclick()
     {
-        startActivity(MainActivity2.class);
-    }
-    
-    @Override
-    protected boolean enableSliding()
-    {
-        return false;
+        Alert("去百度", new Action()
+        {
+            @Override
+            public void action()
+            {
+                baidu.getIndex()
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new SCallBack<String>(MainActivity.this)
+                        {
+                            @Override
+                            public void onSuccess(String result) throws Exception
+                            {
+                                Alert("成功");
+                            }
+                        });
+            }
+        });
     }
 }

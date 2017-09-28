@@ -1,24 +1,15 @@
 package com.xiaolei.easyfreamwork.network.regist;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.util.ArrayMap;
-import android.support.v7.app.AlertDialog;
-import android.view.WindowManager;
-import android.widget.Toast;
 
-import com.xiaolei.easyfreamwork.R;
+import com.xiaolei.easyfreamwork.Config.Config;
+import com.xiaolei.easyfreamwork.alert_dialog.CustomAlertDialog;
 import com.xiaolei.easyfreamwork.annotations.OnCallBack;
 import com.xiaolei.easyfreamwork.common.listeners.Action;
 
 import java.lang.reflect.Method;
-
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by xiaolei on 2017/7/12.
@@ -28,7 +19,7 @@ public abstract class Regist<T>
 {
     private Method[] methods;
     private ArrayMap<String, Method> arrayMap = new ArrayMap<>();
-
+    private CustomAlertDialog alertDialog;
     private Method[] getMethods()
     {
         if (methods == null)
@@ -92,7 +83,7 @@ public abstract class Regist<T>
     {
         Alert(context, obj, null, null, rightText, rightListener);
     }
-
+    
     /**
      * 弹出提示框
      * @param context       上下下文
@@ -110,64 +101,10 @@ public abstract class Regist<T>
             , final String rightText
             , final Action rightListener)
     {
-        Observable.just(context).
-                observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Action1<Context>()
-                {
-                    @Override
-                    public void call(Context context)
-                    {
-                        AlertDialog.Builder builder;
-                        if (Activity.class.isInstance(context) || FragmentActivity.class.isInstance(context))
-                        {
-
-
-                            builder = new AlertDialog.Builder(context);
-                            builder.setCancelable(false);
-                            builder.setTitle("提示信息");
-                            builder.setMessage(obj + "");
-                            builder.setNegativeButton("确定", null);
-                            if (leftText != null)
-                            {
-                                builder.setNeutralButton(leftText, leftListener);
-                            }
-                            if (rightText != null)
-                            {
-                                builder.setNegativeButton(rightText, rightListener);
-                            }
-                            builder.show();
-                        } else
-                        {
-                            builder = new AlertDialog.Builder(context,
-                                    R.style.Base_Theme_AppCompat_Light_Dialog);
-                            builder.setCancelable(false);
-                            builder.setTitle("提示信息");
-                            builder.setMessage(obj + "");
-                            builder.setNegativeButton("确定", null);
-                            if (leftText != null)
-                            {
-                                builder.setNeutralButton(leftText, leftListener);
-                            }
-                            if (rightText != null)
-                            {
-                                builder.setNegativeButton(rightText, rightListener);
-                            }
-                            AlertDialog dialog = builder.create();
-                            if (dialog.getWindow() != null)
-                            {
-                                dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
-                            }
-                            dialog.show();
-                        }
-                    }
-                }, new Action1<Throwable>()
-                {
-                    @Override
-                    public void call(Throwable throwable)
-                    {
-                        Toast.makeText(context, obj + "", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
+        if(alertDialog == null)
+        {
+            alertDialog = new CustomAlertDialog(context, Config.dialog_layout);
+        }
+        alertDialog.Alert(obj,leftText,leftListener,rightText,rightListener);
     }
 }

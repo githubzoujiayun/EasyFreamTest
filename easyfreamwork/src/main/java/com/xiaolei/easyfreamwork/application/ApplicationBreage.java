@@ -3,6 +3,7 @@ package com.xiaolei.easyfreamwork.application;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.support.annotation.IdRes;
 
 import com.xiaolei.easyfreamwork.Config.Config;
 import com.xiaolei.easyfreamwork.network.OKhttp.PersistentCookieStore;

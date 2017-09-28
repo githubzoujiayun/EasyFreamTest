@@ -1,18 +1,13 @@
 package com.xiaolei.easyfreamwork.network.common;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AlertDialog;
-import android.view.WindowManager;
-import android.widget.Toast;
 
-import com.xiaolei.easyfreamwork.R;
+import com.xiaolei.easyfreamwork.Config.Config;
+import com.xiaolei.easyfreamwork.alert_dialog.CustomAlertDialog;
 import com.xiaolei.easyfreamwork.application.ApplicationBreage;
 import com.xiaolei.easyfreamwork.network.regist.Regist;
 import com.xiaolei.easyfreamwork.network.regist.RegisteTable;
-import com.xiaolei.easyfreamwork.utils.Log;
 
 import java.io.IOException;
 import java.lang.ref.SoftReference;
@@ -23,10 +18,7 @@ import java.net.SocketTimeoutException;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import rx.Observable;
 import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 
 /**
  * Created by xiaolei on 2017/7/9.
@@ -34,9 +26,8 @@ import rx.functions.Action1;
 
 public abstract class SICallBack<T> implements Callback<T>, Observer<T>
 {
-    SoftReference<Context> context;
-    AlertDialog.Builder builder;
-
+    public SoftReference<Context> context;
+    private CustomAlertDialog alertDialog;
     public SICallBack(Context context)
     {
         this.context = new SoftReference(context);
@@ -154,8 +145,8 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
                                 method.setAccessible(true);
                             }
                             method.invoke(registObj, objs);
+                            return;
                         }
-                        return;
                     }
                 }
             }
@@ -192,66 +183,12 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
         }
     }
 
-    private void Alert(final Object obj)
+    private void Alert(Object obj)
     {
-        Observable.just(obj)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Object>()
-                {
-                    @Override
-                    public void call(Object o)
-                    {
-                        if (context.get() != null)
-                        {
-                            Context context1 = context.get();
-                            if (Activity.class.isInstance(context1)
-                                    || FragmentActivity.class.isInstance(context1))
-                            {
-                                if ((Activity.class.isInstance(context1) && !((Activity) context1).isFinishing())
-                                        || (FragmentActivity.class.isInstance(context1) && !((FragmentActivity) context1).isFinishing()))
-                                {
-                                    if (builder == null)
-                                    {
-                                        builder = new AlertDialog.Builder(context1);
-                                        builder.setCancelable(false);
-                                    }
-                                    builder.setTitle("提示信息");
-                                    builder.setMessage(o.toString() + "");
-                                    builder.setNegativeButton("确定", null);
-                                    builder.show();
-                                } else
-                                {
-                                    Log.e("HttpRetrofit", "不是activity，或者activity已关闭");
-                                }
-                            } else
-                            {
-                                if (builder == null)
-                                {
-                                    builder = new AlertDialog.Builder(ApplicationBreage.getInstance().getContext(),
-                                            R.style.Base_Theme_AppCompat_Light_Dialog);
-                                    builder.setCancelable(false);
-                                }
-                                builder.setTitle("提示信息");
-                                builder.setMessage(o.toString() + "");
-                                builder.setNegativeButton("确定", null);
-
-                                AlertDialog dialog = builder.create();
-                                if (dialog.getWindow() != null)
-                                {
-                                    dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
-                                }
-                                dialog.show();
-                            }
-                        }
-                    }
-                }, new Action1<Throwable>()
-                {
-                    @Override
-                    public void call(Throwable throwable)
-                    {
-                        Toast.makeText(context.get(), "" + obj, Toast.LENGTH_SHORT).show();
-                        throwable.printStackTrace();
-                    }
-                });
+        if(alertDialog == null)
+        {
+            alertDialog = new CustomAlertDialog(this, Config.dialog_layout);
+        }
+        alertDialog.Alert(obj);
     }
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--自定义Dialog的标题-->
+    <item name="dialog_title" type="id"/>
+    <!--自定义Dialog的信息体-->
+    <item name="dialog_message" type="id"/>
+    <!--自定义Dialog的左边按钮-->
+    <item name="dialog_leftBtn" type="id"/>
+    <!--自定义Dialog的右边按钮-->
+    <item name="dialog_rightBtn" type="id"/>
+</resources>

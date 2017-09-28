@@ -1,5 +1,7 @@
 package com.xiaolei.easyfreamwork.Config;
 
+import android.support.annotation.LayoutRes;
+
 import com.xiaolei.easyfreamwork.network.regist.Regist;
 import com.xiaolei.easyfreamwork.network.regist.RegisteTable;
 
@@ -14,7 +16,8 @@ public class Config
     // 是否是调试模式
     public static boolean DEBUG = true;
     public static Map<String, String> netHeadeMap;
-
+    @LayoutRes
+    public static int dialog_layout = -1;
     /**
      * 设置是否是DEBUG模式
      *
@@ -56,4 +59,10 @@ public class Config
     {
         RegisteTable.getInstance().regist(klass, registClass);
     }
+    
+    public void setCustomAlertDialogLayout(@LayoutRes int alertdialog_layout)
+    {
+        dialog_layout = alertdialog_layout;
+    }
+    
 }

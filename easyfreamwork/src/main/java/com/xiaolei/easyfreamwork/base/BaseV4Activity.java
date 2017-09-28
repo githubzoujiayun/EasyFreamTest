@@ -5,17 +5,17 @@ package com.xiaolei.easyfreamwork.base;
  */
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.xiaolei.easyfreamwork.Config.Config;
+import com.xiaolei.easyfreamwork.alert_dialog.CustomAlertDialog;
 import com.xiaolei.easyfreamwork.application.ApplicationBreage;
 import com.xiaolei.easyfreamwork.common.listeners.Action;
 import com.xiaolei.easyfreamwork.utils.Log;
@@ -29,10 +29,9 @@ import butterknife.ButterKnife;
 public abstract class BaseV4Activity extends FragmentActivity
 {
     protected Handler handler = null;
-    private AlertDialog.Builder builder;
     private Toast toast;
     private String TAG = "BaseV4Activity";
-
+    private CustomAlertDialog alertDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -41,18 +40,7 @@ public abstract class BaseV4Activity extends FragmentActivity
         ApplicationBreage.getInstance().addActivity(this);
         Log.d(TAG, this.getClass().getName() + ":onCreate");
         EventBus.getDefault().register(this);
-        builder = new AlertDialog.Builder(this);
-        builder.setOnDismissListener(new DialogInterface.OnDismissListener()
-        {
-            @Override
-            public void onDismiss(DialogInterface dialog)
-            {
-                builder.setTitle("提示信息");
-                builder.setMessage("");
-                builder.setNeutralButton("取消", null);
-                builder.setNegativeButton("确认", null);
-            }
-        });
+        alertDialog = new CustomAlertDialog(this, Config.dialog_layout);
     }
 
     @Override
@@ -146,18 +134,7 @@ public abstract class BaseV4Activity extends FragmentActivity
             , String rightText
             , Action rightListener)
     {
-        builder.setTitle(title);
-        builder.setMessage(obj + "");
-        builder.setCancelable(false);
-        if (leftText != null)
-        {
-            builder.setNeutralButton(leftText, leftListener);
-        }
-        if (rightText != null)
-        {
-            builder.setNegativeButton(rightText, rightListener);
-        }
-        builder.show();
+        alertDialog.Alert(title,obj,leftText,leftListener,rightText,rightListener);
     }
 
     public void Toast(String msg)
