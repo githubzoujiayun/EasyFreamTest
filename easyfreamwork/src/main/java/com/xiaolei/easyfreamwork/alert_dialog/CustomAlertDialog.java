@@ -160,27 +160,58 @@ public class CustomAlertDialog
         });
     }
 
-
+    /**
+     * 只弹出提示信息
+     * @param obj
+     */
     public void Alert(Object obj)
     {
         Alert(obj, "确定", null);
     }
 
+    /**
+     * 弹出内容，自定义确定的点击事件
+     * @param obj       弹出的内容
+     * @param rightListener 确定按钮的点击事件
+     */
     public void Alert(Object obj, Action rightListener)
     {
         Alert(obj, null, null, "确定", rightListener);
     }
 
+    /**
+     * 只弹出内容，并且自定义按钮文字和点击事件
+     * @param obj   弹出的内容
+     * @param rightText     按钮的问题
+     * @param rightListener 相应的点击事件
+     */
     public void Alert(Object obj, String rightText, Action rightListener)
     {
         Alert(obj, null, null, rightText, rightListener);
     }
 
+    /**
+     * 弹出内容，自定义两边文字，和两边的点击事件
+     * @param obj           弹出的内容
+     * @param leftText      左边文字
+     * @param leftListener  左边的点击事件
+     * @param rightText     右边的文字
+     * @param rightListener 右边的点击事件
+     */
     public void Alert(Object obj, String leftText, Action leftListener, String rightText, Action rightListener)
     {
-        Alert("提示信息", obj, leftText, leftListener, rightText, rightListener);
+        Alert(null, obj, leftText, leftListener, rightText, rightListener);
     }
 
+    /**
+     * 弹出标题，内容，两边文字以及相应的点击事件
+     * @param title             标题
+     * @param obj               弹出的内容
+     * @param leftText          左边的文字
+     * @param leftListener      左边的点击事件
+     * @param rightText         右边的文字
+     * @param rightListener     右边的点击事件
+     */
     public void Alert(String title, Object obj, String leftText, final Action leftListener, String rightText, final Action rightListener)
     {
         if (builder == null)
@@ -238,7 +269,14 @@ public class CustomAlertDialog
                 
                 if (dialog_title != null)
                 {
-                    dialog_title.setText("" + title + "");
+                    if(title == null)
+                    {
+                        dialog_title.setVisibility(View.GONE);
+                    }else 
+                    {
+                        dialog_title.setVisibility(View.VISIBLE);
+                        dialog_title.setText("" + title + "");
+                    }
                 }
                 if (dialog_message != null)
                 {
@@ -252,6 +290,7 @@ public class CustomAlertDialog
                         dialog_leftBtn.setVisibility(View.GONE);
                     } else
                     {
+                        dialog_leftBtn.setVisibility(View.VISIBLE);
                         dialog_leftBtn.setText("" + leftText + "");
                         dialog_leftBtn.setOnClickListener(new View.OnClickListener()
                         {
@@ -277,6 +316,7 @@ public class CustomAlertDialog
                         dialog_rightBtn.setVisibility(View.GONE);
                     } else
                     {
+                        dialog_rightBtn.setVisibility(View.VISIBLE);
                         dialog_rightBtn.setText("" + rightText + "");
                         dialog_rightBtn.setOnClickListener(new View.OnClickListener()
                         {

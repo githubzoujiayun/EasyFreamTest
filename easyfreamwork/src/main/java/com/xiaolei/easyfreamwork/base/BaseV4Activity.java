@@ -105,36 +105,27 @@ public abstract class BaseV4Activity extends FragmentActivity
 
     public void Alert(Object obj)
     {
-        Alert(obj, "确定", null);
+        alertDialog.Alert(obj);
     }
 
     public void Alert(Object obj, Action rightListener)
     {
-        Alert(obj, null, null, "确定", rightListener);
+        alertDialog.Alert(obj, rightListener);
     }
 
     public void Alert(Object obj, String rightText, Action rightListener)
     {
-        Alert(obj, null, null, rightText, rightListener);
+        alertDialog.Alert(obj, rightText, rightListener);
     }
 
-    public void Alert(Object obj
-            , String leftText
-            , Action leftListener
-            , String rightText
-            , Action rightListener)
+    public void Alert(Object obj,String leftText,Action leftListener,String rightText,Action rightListener)
     {
-        Alert("提示信息", obj, leftText, leftListener, rightText, rightListener);
+        alertDialog.Alert(obj, leftText, leftListener, rightText, rightListener);
     }
 
-    public void Alert(String title
-            , Object obj
-            , String leftText
-            , Action leftListener
-            , String rightText
-            , Action rightListener)
+    public void Alert(String title,Object obj,String leftText,Action leftListener,String rightText,Action rightListener)
     {
-        alertDialog.Alert(title,obj,leftText,leftListener,rightText,rightListener);
+        alertDialog.Alert(title, obj, leftText, leftListener, rightText, rightListener);
     }
 
     public void Toast(String msg)
@@ -174,5 +165,10 @@ public abstract class BaseV4Activity extends FragmentActivity
     public void post(Message message)
     {
         EventBus.getDefault().post(message);
+    }
+
+    public CustomAlertDialog getAlertDialog()
+    {
+        return alertDialog;
     }
 }

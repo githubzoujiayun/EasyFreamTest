@@ -33,12 +33,13 @@ public abstract class BaseActivity extends Activity
     protected Toast toast = null;
     protected String klassName = this.getClass().getName();
     private CustomAlertDialog alertDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         handler = new Handler();
-        alertDialog = new CustomAlertDialog(this,Config.dialog_layout);
+        alertDialog = new CustomAlertDialog(this, Config.dialog_layout);
         ApplicationBreage.getInstance().addActivity(this);
         Log.d(TAG, klassName + ":onCreate");
         EventBus.getDefault().register(this);
@@ -108,36 +109,27 @@ public abstract class BaseActivity extends Activity
 
     public void Alert(Object obj)
     {
-        Alert(obj, "确定", null);
+        alertDialog.Alert(obj);
     }
 
     public void Alert(Object obj, Action rightListener)
     {
-        Alert(obj, null, null, "确定", rightListener);
+        alertDialog.Alert(obj, rightListener);
     }
-
+    
     public void Alert(Object obj, String rightText, Action rightListener)
     {
-        Alert(obj, null, null, rightText, rightListener);
+        alertDialog.Alert(obj, rightText, rightListener);
     }
 
-    public void Alert(Object obj
-            , String leftText
-            , Action leftListener
-            , String rightText
-            , Action rightListener)
+    public void Alert(Object obj,String leftText,Action leftListener,String rightText,Action rightListener)
     {
-        Alert("提示信息", obj, leftText, leftListener, rightText, rightListener);
+        alertDialog.Alert(obj, leftText, leftListener, rightText, rightListener);
     }
 
-    public void Alert(String title
-            , Object obj
-            , String leftText
-            , Action leftListener
-            , String rightText
-            , Action rightListener)
+    public void Alert(String title,Object obj,String leftText,Action leftListener,String rightText,Action rightListener)
     {
-        alertDialog.Alert(title,obj,leftText,leftListener,rightText,rightListener);
+        alertDialog.Alert(title, obj, leftText, leftListener, rightText, rightListener);
     }
 
     public void startActivity(Class<? extends Activity> klass)
@@ -173,10 +165,20 @@ public abstract class BaseActivity extends Activity
 
     /**
      * 发送一个消息
+     *
      * @param message
      */
     public void post(Message message)
     {
         EventBus.getDefault().post(message);
+    }
+
+    /**
+     * 获取自定义的dialog，怕有别的没想到的需求
+     * @return
+     */
+    public CustomAlertDialog getAlertDialog()
+    {
+        return alertDialog;
     }
 }
