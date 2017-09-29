@@ -61,23 +61,6 @@ public class MainActivity extends BaseActivity
     @OnClick(R.id.button)
     public void onclick()
     {
-        Alert("去百度", new Action()
-        {
-            @Override
-            public void action()
-            {
-//                baidu.getIndex()
-//                        .subscribeOn(Schedulers.newThread())
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribe(new SCallBack<String>(MainActivity.this)
-//                        {
-//                            @Override
-//                            public void onSuccess(String result) throws Exception
-//                            {
-//                                Alert("成功");
-//                            }
-//                        });
-            }
-        });
+        startActivity(MainActivity2.class);
     }
 }
