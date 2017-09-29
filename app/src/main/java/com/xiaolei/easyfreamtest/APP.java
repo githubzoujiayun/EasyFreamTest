@@ -31,7 +31,7 @@ public class APP extends Application implements IApp
         Map<String, String> head = new HashMap<>();
         head.put("from", "xiaolei");
         config.setNetHeadeMap(head);
-        config.setCustomAlertDialogLayout(R.layout.my_dialog);
+        config.setCustomAlertDialogLayout(R.layout.activity_alert);
         ApplicationBreage.getInstance().initApplication(this, config);
         super.onCreate();
     }

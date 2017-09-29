@@ -4,17 +4,26 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.xiaolei.easyfreamwork.R;
 import com.xiaolei.easyfreamwork.application.ApplicationBreage;
 import com.xiaolei.easyfreamwork.common.listeners.Action;
 import com.xiaolei.easyfreamwork.network.common.SICallBack;
+import com.xiaolei.easyfreamwork.utils.DensityUtil;
 import com.xiaolei.easyfreamwork.utils.Log;
 
 import java.lang.ref.SoftReference;
@@ -114,7 +123,7 @@ public class CustomAlertDialog
     {
         this(context, -1);
     }
-    
+
     public CustomAlertDialog(Context context, @LayoutRes int layout)
     {
         dialog_layout = layout;
@@ -196,7 +205,13 @@ public class CustomAlertDialog
         }
         if (alertDialog.getWindow() != null)
         {
-            alertDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
+            Window window = alertDialog.getWindow();
+            WindowManager.LayoutParams params = window.getAttributes();
+            // 去除四角黑色背景  
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            // 设置周围的暗色系数  
+            params.dimAmount = 0.95f;
+            window.setAttributes(params);
         }
         alertDialog.show();
         if (dialog_layout != -1)
@@ -210,6 +225,17 @@ public class CustomAlertDialog
                 TextView dialog_leftBtn = (TextView) view.findViewById(R.id.dialog_leftBtn);
                 TextView dialog_rightBtn = (TextView) view.findViewById(R.id.dialog_rightBtn);
 
+                Window window = alertDialog.getWindow();
+                if (window != null)
+                {
+                    WindowManager.LayoutParams params = window.getAttributes();
+                    window.setGravity(Gravity.CENTER);
+                    DisplayMetrics dm = new DisplayMetrics();
+                    window.getWindowManager().getDefaultDisplay().getMetrics(dm);
+                    params.width = (int) (dm.widthPixels * 0.84);
+                    window.setAttributes(params);
+                }
+                
                 if (dialog_title != null)
                 {
                     dialog_title.setText("" + title + "");
