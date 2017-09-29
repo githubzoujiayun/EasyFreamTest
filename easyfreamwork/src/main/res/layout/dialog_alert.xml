@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
-    android:background="@drawable/rounded_search_text"
+    android:background="@drawable/alert_dialog_bg"
     android:gravity="center_horizontal|bottom"
     android:minHeight="80dp"
     android:orientation="vertical">
+
+    <TextView
+        android:id="@id/dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/alert_dialog_title_bg"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="@string/dialog_title"
+        android:textColor="@drawable/selector_alert_btn_color"
+        android:textSize="15sp"/>
 
     <TextView
         android:id="@id/dialog_message"
@@ -18,9 +30,16 @@
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         android:text=""
-        android:textColor="#353535"
+        android:textColor="@color/main_text_color"
         android:textSize="15sp"/>
 
+    <View
+        android:id="@+id/message_line"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/gray_line"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,11 +52,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_weight="1"
+            android:background="@drawable/alert_dialog_leftbt_bg"
             android:gravity="center"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:text="取消"
-            android:textColor="#006FFF"
+            android:text="@string/affirm"
+            android:textColor="@drawable/selector_alert_btn_color"
             android:textSize="15sp"/>
 
         <TextView
@@ -49,8 +69,8 @@
             android:gravity="center"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:text="确认"
-            android:textColor="#006FFF"
+            android:text="@string/cancel"
+            android:textColor="@drawable/selector_alert_btn_color"
             android:textSize="15sp"/>
     </LinearLayout>
 

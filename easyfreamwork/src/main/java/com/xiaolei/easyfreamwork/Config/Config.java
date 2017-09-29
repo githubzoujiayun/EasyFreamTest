@@ -2,6 +2,7 @@ package com.xiaolei.easyfreamwork.Config;
 
 import android.support.annotation.LayoutRes;
 
+import com.xiaolei.easyfreamwork.R;
 import com.xiaolei.easyfreamwork.network.regist.Regist;
 import com.xiaolei.easyfreamwork.network.regist.RegisteTable;
 
@@ -17,7 +18,7 @@ public class Config
     public static boolean DEBUG = true;
     public static Map<String, String> netHeadeMap;
     @LayoutRes
-    public static int dialog_layout = -1;
+    public static int dialog_layout = R.layout.dialog_alert;
     /**
      * 设置是否是DEBUG模式
      *
