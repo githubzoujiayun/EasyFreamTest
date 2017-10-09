@@ -78,7 +78,7 @@ public class MainActivity extends BaseActivity
         switch (view.getId())
         {
             case R.id.button:
-                Alert("哈哈哈");
+                loading.Alert("哈哈哈");
                 break;
             case R.id.button2:
                 CustomDialogBuilder.With(this)//上下文

@@ -74,17 +74,17 @@ public class LoadingAlertDialog
     }
 
 
-    public void Alert()
+    public AlertDialog Alert()
     {
-        Alert(null);
+        return Alert(null);
     }
 
     /**
      * 弹出加载框，并且提示文字
      */
-    public void Alert(final String title)
+    public AlertDialog Alert(final String title)
     {
-        builder.InitView(new DialogInitConfig.DialogInitCallBack()
+        return builder.InitView(new DialogInitConfig.DialogInitCallBack()
         {
             @Override
             public void onInit(AlertDialog alertDialog, View view)
