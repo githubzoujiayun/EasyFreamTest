@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.ComponentCallbacks;
 import android.content.Context;
+import android.os.Handler;
 
+import com.xiaolei.easyfreamwork.AlertDialog.CustomAlertDialog;
 import com.xiaolei.easyfreamwork.Config.Config;
 import com.xiaolei.easyfreamwork.application.ApplicationBreage;
 import com.xiaolei.easyfreamwork.application.IApp;

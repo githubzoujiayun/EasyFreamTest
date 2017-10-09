@@ -4,7 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 
 import com.xiaolei.easyfreamwork.Config.Config;
-import com.xiaolei.easyfreamwork.alert_dialog.CustomAlertDialog;
+import com.xiaolei.easyfreamwork.AlertDialog.CustomAlertDialog;
 import com.xiaolei.easyfreamwork.application.ApplicationBreage;
 import com.xiaolei.easyfreamwork.network.regist.Regist;
 import com.xiaolei.easyfreamwork.network.regist.RegisteTable;

@@ -19,6 +19,8 @@ public class Config
     public static Map<String, String> netHeadeMap;
     @LayoutRes
     public static int dialog_layout = R.layout.dialog_alert;
+    @LayoutRes
+    public static int dialog_loading_layout = R.layout.dialog_loading;
     /**
      * 设置是否是DEBUG模式
      *

@@ -1,31 +1,33 @@
 package com.xiaolei.easyfreamtest;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 
+import com.xiaolei.easyfreamwork.AlertDialog.CustomDialogBuilder;
+import com.xiaolei.easyfreamwork.AlertDialog.LoadingAlertDialog;
 import com.xiaolei.easyfreamwork.base.BaseActivity;
-import com.xiaolei.easyfreamwork.common.listeners.Action;
 import com.xiaolei.easyfreamwork.network.BaseRetrofit;
-import com.xiaolei.easyfreamwork.network.common.SCallBack;
+import com.xiaolei.easyfreamwork.utils.DensityUtil;
 
 import butterknife.OnClick;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity
 {
-    Baidu baidu;
+    LoadingAlertDialog loading;
+    private Baidu baidu;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        loading = new LoadingAlertDialog(this);
     }
 
     @Override
     protected void onSetContentView()
     {
-
+        
     }
 
     @Override
@@ -37,7 +39,8 @@ public class MainActivity extends BaseActivity
     @Override
     public void initData()
     {
-
+        Intent intent = new Intent(this,mService.class);
+        startService(intent);
     }
 
     @Override
@@ -58,9 +61,37 @@ public class MainActivity extends BaseActivity
 
     }
 
-    @OnClick(R.id.button)
-    public void onclick()
+    @OnClick({R.id.button,R.id.button2})
+    public void onclick(View view)
     {
-        startActivity(MainActivity2.class);
+//        baidu.getIndex()
+//                .subscribeOn(Schedulers.newThread())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new SCallBack<String>(this)
+//                {
+//                    @Override
+//                    public void onSuccess(String result) throws Exception
+//                    {
+//                        Alert("好了");
+//                    }
+//                });
+        switch (view.getId())
+        {
+            case R.id.button:
+                Alert("哈哈哈");
+                break;
+            case R.id.button2:
+                CustomDialogBuilder.With(this)//上下文
+                        .load(R.layout.dialog_loading)//自定义的布局文件
+                        .setDimAmount(0.5f)//设置背景透明度
+                        .setCancelable(true)//是否点击区域外隐藏
+                        .setHeigh(DensityUtil.dip2px(this,100))//设置高度
+                        .setWidth(DensityUtil.dip2px(this,100))//设置宽度
+                        .InitView(null)//初始化View
+                        .InitEvent(null)//初始化事件
+                        .show();//显示
+                break;
+        }
+        //startActivity(MainActivity2.class);
     }
 }

@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.xiaolei.easyfreamwork.Config.Config;
-import com.xiaolei.easyfreamwork.alert_dialog.CustomAlertDialog;
+import com.xiaolei.easyfreamwork.AlertDialog.CustomAlertDialog;
 import com.xiaolei.easyfreamwork.application.ApplicationBreage;
 import com.xiaolei.easyfreamwork.common.listeners.Action;
 import com.xiaolei.easyfreamwork.utils.Log;

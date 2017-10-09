@@ -2,6 +2,10 @@
 <resources>
     <color name="c_E7E7E7">#E7E7E7</color>
     <color name="c_353535">#353535</color>
+    <color name="c_000000">#B4000000</color>
+
+
     <color name="gray_line">@color/c_E7E7E7</color>
     <color name="main_text_color">@color/c_353535</color>
+    <color name="black_Trans">@color/c_000000</color>
 </resources>

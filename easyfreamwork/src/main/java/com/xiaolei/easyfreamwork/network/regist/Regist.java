@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.util.ArrayMap;
 
 import com.xiaolei.easyfreamwork.Config.Config;
-import com.xiaolei.easyfreamwork.alert_dialog.CustomAlertDialog;
+import com.xiaolei.easyfreamwork.AlertDialog.CustomAlertDialog;
 import com.xiaolei.easyfreamwork.annotations.OnCallBack;
 import com.xiaolei.easyfreamwork.common.listeners.Action;
 
