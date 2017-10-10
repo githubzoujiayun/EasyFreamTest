@@ -29,6 +29,7 @@ public class DialogInitConfig
     private boolean isBackNet = false;
     private boolean cancelable = true;
     private Context context;
+    private int gravity = Gravity.CENTER;
     
     public DialogInitConfig(@LayoutRes int layout, AlertDialog.Builder builder, boolean isBackNet, Context context)
     {
@@ -126,6 +127,16 @@ public class DialogInitConfig
     }
 
     /**
+     * 设置
+     * @return
+     */
+    public DialogInitConfig setGravity(int gravity)
+    {
+        this.gravity = gravity;
+        return this;
+    }
+    
+    /**
      * 显示出来
      * @return  返回一个dialog，方便dismiss
      */
@@ -174,7 +185,7 @@ public class DialogInitConfig
             if (window != null)
             {
                 WindowManager.LayoutParams params = window.getAttributes();
-                window.setGravity(Gravity.CENTER);
+                window.setGravity(gravity);
                 DisplayMetrics dm = new DisplayMetrics();
                 window.getWindowManager().getDefaultDisplay().getMetrics(dm);
                 if (width != -1)
