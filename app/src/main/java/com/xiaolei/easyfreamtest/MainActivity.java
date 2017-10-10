@@ -1,11 +1,16 @@
 package com.xiaolei.easyfreamtest;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.TextView;
 
 import com.xiaolei.easyfreamwork.AlertDialog.CustomDialogBuilder;
 import com.xiaolei.easyfreamwork.AlertDialog.LoadingAlertDialog;
+import com.xiaolei.easyfreamwork.AlertDialog.dialog_fragment.DialogFragmentBuilder;
+import com.xiaolei.easyfreamwork.AlertDialog.dialog_fragment.DialogFragmentConfig;
 import com.xiaolei.easyfreamwork.base.BaseActivity;
 import com.xiaolei.easyfreamwork.network.BaseRetrofit;
 import com.xiaolei.easyfreamwork.utils.DensityUtil;
@@ -85,6 +90,7 @@ public class MainActivity extends BaseActivity
                         .load(R.layout.dialog_loading)//自定义的布局文件
                         .setDimAmount(0.5f)//设置背景透明度
                         .setCancelable(true)//是否点击区域外隐藏
+                        .setGravity(Gravity.CENTER)
                         .setHeigh(DensityUtil.dip2px(this,100))//设置高度
                         .setWidth(DensityUtil.dip2px(this,100))//设置宽度
                         .InitView(null)//初始化View

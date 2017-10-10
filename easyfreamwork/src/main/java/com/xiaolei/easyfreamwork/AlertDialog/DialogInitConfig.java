@@ -13,7 +13,6 @@ import android.view.Window;
 import android.view.WindowManager;
 
 /**
- * 
  * Created by xiaolei on 2017/10/9.
  */
 
@@ -30,7 +29,8 @@ public class DialogInitConfig
     private boolean cancelable = true;
     private Context context;
     private int gravity = Gravity.CENTER;
-    
+    private int paddingLeft = -1, paddingTop = -1, paddingRight = -1, paddingBottom = -1;
+
     public DialogInitConfig(@LayoutRes int layout, AlertDialog.Builder builder, boolean isBackNet, Context context)
     {
         this.layout = layout;
@@ -41,6 +41,7 @@ public class DialogInitConfig
 
     /**
      * 获取上下文
+     *
      * @return
      */
     public Context getContext()
@@ -50,6 +51,7 @@ public class DialogInitConfig
 
     /**
      * 初始化UI
+     *
      * @param callBack
      * @return
      */
@@ -61,6 +63,7 @@ public class DialogInitConfig
 
     /**
      * 初始化事件
+     *
      * @param callBack
      * @return
      */
@@ -72,6 +75,7 @@ public class DialogInitConfig
 
     /**
      * 设置宽度，绝对的值
+     *
      * @param width
      * @return
      */
@@ -83,10 +87,11 @@ public class DialogInitConfig
 
     /**
      * 设置宽度，屏幕的百分比的
+     *
      * @param widthPercent
      * @return
      */
-    public DialogInitConfig setWidth(@FloatRange(from = 0.0,to = 1.0) double widthPercent)
+    public DialogInitConfig setWidth(@FloatRange(from = 0.0, to = 1.0) double widthPercent)
     {
         WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         this.width = (int) (wm.getDefaultDisplay().getWidth() * widthPercent);
@@ -95,6 +100,7 @@ public class DialogInitConfig
 
     /**
      * 设置高度
+     *
      * @param heigh
      * @return
      */
@@ -106,10 +112,11 @@ public class DialogInitConfig
 
     /**
      * 设置背景透明度
+     *
      * @param dimAmount
      * @return
      */
-    public DialogInitConfig setDimAmount(@FloatRange(from = 0.0,to = 1.0) float dimAmount)
+    public DialogInitConfig setDimAmount(@FloatRange(from = 0.0, to = 1.0) float dimAmount)
     {
         this.dimAmount = dimAmount;
         return this;
@@ -117,6 +124,7 @@ public class DialogInitConfig
 
     /**
      * 设置是否可以点击侧边取消
+     *
      * @param cancelable
      * @return
      */
@@ -127,7 +135,8 @@ public class DialogInitConfig
     }
 
     /**
-     * 设置
+     * 设置位置
+     *
      * @return
      */
     public DialogInitConfig setGravity(int gravity)
@@ -135,10 +144,12 @@ public class DialogInitConfig
         this.gravity = gravity;
         return this;
     }
-    
+
+
     /**
      * 显示出来
-     * @return  返回一个dialog，方便dismiss
+     *
+     * @return 返回一个dialog，方便dismiss
      */
     public AlertDialog show()
     {
@@ -149,7 +160,7 @@ public class DialogInitConfig
         builder.setTitle("");
         builder.setMessage("");
         builder.setCancelable(cancelable);
-        
+
         AlertDialog alertDialog = builder.create();
         if (alertDialog == null)
         {
@@ -180,7 +191,7 @@ public class DialogInitConfig
             {
                 eventCallBack.initEvent(alertDialog, view);
             }
-            
+
             window = alertDialog.getWindow();
             if (window != null)
             {
@@ -206,7 +217,7 @@ public class DialogInitConfig
         }
         return alertDialog;
     }
-    
+
     public interface DialogInitCallBack
     {
         public void onInit(AlertDialog alertDialog, View view);
