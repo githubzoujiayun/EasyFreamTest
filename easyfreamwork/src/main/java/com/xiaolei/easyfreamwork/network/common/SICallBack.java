@@ -18,7 +18,11 @@ import java.net.SocketTimeoutException;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.Observable;
 import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by xiaolei on 2017/7/9.
@@ -28,6 +32,7 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
 {
     public SoftReference<Context> context;
     private CustomAlertDialog alertDialog;
+
     public SICallBack(Context context)
     {
         this.context = new SoftReference(context);
@@ -132,10 +137,10 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
                                 if (paramtype == Context.class)
                                 {
                                     objs[i] = context.get();
-                                }else if(paramtype.isInstance(bodyBean))
+                                } else if (paramtype.isInstance(bodyBean))
                                 {
                                     objs[i] = bodyBean;
-                                }else 
+                                } else
                                 {
                                     objs[i] = null;
                                 }
@@ -185,10 +190,19 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
 
     private void Alert(Object obj)
     {
-        if(alertDialog == null)
-        {
-            alertDialog = new CustomAlertDialog(this, Config.dialog_layout);
-        }
-        alertDialog.Alert(obj);
+        Observable.just(obj)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Object>()
+                {
+                    @Override
+                    public void call(Object object)
+                    {
+                        if (alertDialog == null)
+                        {
+                            alertDialog = new CustomAlertDialog(SICallBack.this, Config.dialog_layout);
+                        }
+                        alertDialog.Alert(object);
+                    }
+                });
     }
 }
