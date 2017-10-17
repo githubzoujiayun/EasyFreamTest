@@ -80,24 +80,24 @@ public class MainActivity extends BaseActivity
 //                        Alert("好了");
 //                    }
 //                });
-        switch (view.getId())
-        {
-            case R.id.button:
-                loading.Alert("哈哈哈");
-                break;
-            case R.id.button2:
-                CustomDialogBuilder.With(this)//上下文
-                        .load(R.layout.dialog_loading)//自定义的布局文件
-                        .setDimAmount(0.5f)//设置背景透明度
-                        .setCancelable(true)//是否点击区域外隐藏
-                        .setGravity(Gravity.CENTER)
-                        .setHeigh(DensityUtil.dip2px(this,100))//设置高度
-                        .setWidth(DensityUtil.dip2px(this,100))//设置宽度
-                        .InitView(null)//初始化View
-                        .InitEvent(null)//初始化事件
-                        .show();//显示
-                break;
-        }
-        //startActivity(MainActivity2.class);
+        // switch (view.getId())
+        // {
+        //     case R.id.button:
+        //         loading.Alert("哈哈哈");
+        //         break;
+        //     case R.id.button2:
+        //         CustomDialogBuilder.With(this)//上下文
+        //                 .load(R.layout.dialog_loading)//自定义的布局文件
+        //                 .setDimAmount(0.5f)//设置背景透明度
+        //                 .setCancelable(true)//是否点击区域外隐藏
+        //                 .setGravity(Gravity.CENTER)
+        //                 .setHeigh(DensityUtil.dip2px(this,100))//设置高度
+        //                 .setWidth(DensityUtil.dip2px(this,100))//设置宽度
+        //                 .InitView(null)//初始化View
+        //                 .InitEvent(null)//初始化事件
+        //                 .show();//显示
+        //         break;
+        // }
+        startActivity(MainActivity2.class);
     }
 }

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,8 @@ public abstract class BaseV4Activity extends FragmentActivity
     private Toast toast;
     private String TAG = "BaseV4Activity";
     private CustomAlertDialog alertDialog;
+    private boolean hasResume = false;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -42,7 +45,13 @@ public abstract class BaseV4Activity extends FragmentActivity
         EventBus.getDefault().register(this);
         alertDialog = new CustomAlertDialog(this, Config.dialog_layout);
     }
-
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState)
+    {
+        super.onPostCreate(savedInstanceState);
+        initView();
+        setListener();
+    }
     @Override
     public void setContentView(View view)
     {
@@ -51,9 +60,6 @@ public abstract class BaseV4Activity extends FragmentActivity
         super.setContentView(view);
         ButterKnife.bind(this);
         onSetContentView();
-        initView();
-        setListener();
-        loadData();
     }
 
     @Override
@@ -64,9 +70,6 @@ public abstract class BaseV4Activity extends FragmentActivity
         super.setContentView(view, params);
         ButterKnife.bind(this);
         onSetContentView();
-        initView();
-        setListener();
-        loadData();
     }
 
     @Override
@@ -77,11 +80,19 @@ public abstract class BaseV4Activity extends FragmentActivity
         super.setContentView(layoutResID);
         ButterKnife.bind(this);
         onSetContentView();
-        initView();
-        setListener();
-        loadData();
     }
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        if(!hasResume)
+        {
+            loadData();
+            hasResume = true;
+        }
+    }
+    
     protected abstract void onSetContentView();
 
     public abstract void initObj();

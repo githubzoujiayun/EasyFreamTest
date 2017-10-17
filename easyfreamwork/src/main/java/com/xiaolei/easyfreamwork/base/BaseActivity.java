@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -33,7 +34,8 @@ public abstract class BaseActivity extends Activity
     protected Toast toast = null;
     protected String klassName = this.getClass().getName();
     private CustomAlertDialog alertDialog;
-
+    private boolean hasResume = false;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -46,6 +48,14 @@ public abstract class BaseActivity extends Activity
     }
 
     @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState)
+    {
+        super.onPostCreate(savedInstanceState);
+        initView();
+        setListener();
+    }
+
+    @Override
     public void setContentView(View view)
     {
         initObj();
@@ -53,9 +63,6 @@ public abstract class BaseActivity extends Activity
         super.setContentView(view);
         ButterKnife.bind(this);
         onSetContentView();
-        initView();
-        setListener();
-        loadData();
     }
 
     @Override
@@ -66,9 +73,6 @@ public abstract class BaseActivity extends Activity
         super.setContentView(view, params);
         ButterKnife.bind(this);
         onSetContentView();
-        initView();
-        setListener();
-        loadData();
     }
 
     @Override
@@ -79,9 +83,18 @@ public abstract class BaseActivity extends Activity
         super.setContentView(layoutResID);
         ButterKnife.bind(this);
         onSetContentView();
-        initView();
-        setListener();
-        loadData();
+    }
+
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        if(!hasResume)
+        {
+            loadData();
+            hasResume = true;
+        }
     }
 
     protected abstract void onSetContentView();
