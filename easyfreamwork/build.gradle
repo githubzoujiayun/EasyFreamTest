@@ -3,8 +3,8 @@ apply plugin: 'maven'
 apply plugin: 'com.novoda.bintray-release'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
 
     defaultConfig {
         minSdkVersion 15
@@ -18,21 +18,21 @@ publish {
     userOrg = 'kavipyouxiang'// 用户所在组织,好像是用
     groupId = 'com.xiaolei'// 包名
     artifactId = 'easyfreamwork'// library的名字
-    version = '1.5.2'// 版本
+    version = '1.5.3'// 版本
     description = 'Android FreamWork Library'
     website = "https://github.com/xiaolei123/EasyFreamTest"
 }
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:26.1.0'
     //compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support:multidex:1.0.2'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-scalars:2.0.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0'
-    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.jakewharton:butterknife:8.5.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     compile 'org.greenrobot:eventbus:3.0.0'

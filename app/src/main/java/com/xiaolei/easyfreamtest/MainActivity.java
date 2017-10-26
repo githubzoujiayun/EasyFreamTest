@@ -13,9 +13,12 @@ import com.xiaolei.easyfreamwork.AlertDialog.dialog_fragment.DialogFragmentBuild
 import com.xiaolei.easyfreamwork.AlertDialog.dialog_fragment.DialogFragmentConfig;
 import com.xiaolei.easyfreamwork.base.BaseActivity;
 import com.xiaolei.easyfreamwork.network.BaseRetrofit;
+import com.xiaolei.easyfreamwork.network.common.SCallBack;
 import com.xiaolei.easyfreamwork.utils.DensityUtil;
 
 import butterknife.OnClick;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity
 {
@@ -69,17 +72,17 @@ public class MainActivity extends BaseActivity
     @OnClick({R.id.button,R.id.button2})
     public void onclick(View view)
     {
-//        baidu.getIndex()
-//                .subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new SCallBack<String>(this)
-//                {
-//                    @Override
-//                    public void onSuccess(String result) throws Exception
-//                    {
-//                        Alert("好了");
-//                    }
-//                });
+        baidu.getIndex()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SCallBack<String>(this)
+                {
+                    @Override
+                    public void onSuccess(String result) throws Exception
+                    {
+                        Alert("好了");
+                    }
+                });
         // switch (view.getId())
         // {
         //     case R.id.button:

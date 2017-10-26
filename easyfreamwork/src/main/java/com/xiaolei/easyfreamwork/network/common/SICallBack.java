@@ -22,7 +22,6 @@ import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by xiaolei on 2017/7/9.
@@ -48,11 +47,11 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
         this(fragment.getActivity());
     }
 
-    abstract void onSuccess(T result) throws Exception;
+    public abstract void onSuccess(T result) throws Exception;
+    
+    public abstract void onFail(Throwable t);
 
-    abstract void onField(Throwable t);
-
-    abstract void onFinally();
+    public abstract void onFinally();
 
     @Override
     public void onResponse(Call<T> call, Response<T> response)
@@ -85,7 +84,7 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
                 showExceptionAlert(t);
                 t.printStackTrace();
             }
-            onField(t);
+            onFail(t);
         } finally
         {
             onFinally();
@@ -104,7 +103,7 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
         try
         {
             showExceptionAlert(e);
-            onField(e);
+            onFail(e);
             e.printStackTrace();
         } finally
         {
