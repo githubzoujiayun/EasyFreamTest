@@ -34,6 +34,7 @@ public abstract class BaseV4Activity extends FragmentActivity
     private String TAG = "BaseV4Activity";
     private CustomAlertDialog alertDialog;
     private boolean hasResume = false;
+    private boolean hasPostCreate = false;
     
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -49,8 +50,12 @@ public abstract class BaseV4Activity extends FragmentActivity
     protected void onPostCreate(@Nullable Bundle savedInstanceState)
     {
         super.onPostCreate(savedInstanceState);
-        initView();
-        setListener();
+        if(!hasPostCreate)
+        {
+            initView();
+            setListener();
+            hasPostCreate = true;
+        }
     }
     @Override
     public void setContentView(View view)

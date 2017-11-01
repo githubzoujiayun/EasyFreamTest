@@ -35,6 +35,7 @@ public abstract class BaseActivity extends Activity
     protected String klassName = this.getClass().getName();
     private CustomAlertDialog alertDialog;
     private boolean hasResume = false;
+    private boolean hasPostCreate = false;
     
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -51,8 +52,12 @@ public abstract class BaseActivity extends Activity
     protected void onPostCreate(@Nullable Bundle savedInstanceState)
     {
         super.onPostCreate(savedInstanceState);
-        initView();
-        setListener();
+        if(!hasPostCreate)
+        {
+            initView();
+            setListener();
+            hasPostCreate = true;
+        }
     }
 
     @Override
