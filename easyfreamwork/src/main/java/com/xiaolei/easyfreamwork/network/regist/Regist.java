@@ -19,7 +19,7 @@ public abstract class Regist<T>
 {
     private Method[] methods;
     private ArrayMap<String, Method> arrayMap = new ArrayMap<>();
-    private CustomAlertDialog alertDialog;
+
     private Method[] getMethods()
     {
         if (methods == null)
@@ -63,6 +63,7 @@ public abstract class Regist<T>
 
     /**
      * 弹出提示框
+     *
      * @param context       上下文
      * @param obj           提示信息
      * @param rightListener 右边点击事件
@@ -74,6 +75,7 @@ public abstract class Regist<T>
 
     /**
      * 弹出提示框
+     *
      * @param context       上下文
      * @param obj           提示内容
      * @param rightText     右边文字
@@ -83,11 +85,12 @@ public abstract class Regist<T>
     {
         Alert(context, obj, null, null, rightText, rightListener);
     }
-    
+
     /**
      * 弹出提示框
+     *
      * @param context       上下下文
-     * @param obj           显示内容 
+     * @param obj           显示内容
      * @param leftText      左边文字
      * @param leftListener  左边点击事件
      * @param rightText     右边内容
@@ -101,10 +104,7 @@ public abstract class Regist<T>
             , final String rightText
             , final Action rightListener)
     {
-        if(alertDialog == null)
-        {
-            alertDialog = new CustomAlertDialog(context, Config.dialog_layout);
-        }
-        alertDialog.Alert(obj,leftText,leftListener,rightText,rightListener);
+        new CustomAlertDialog(context, Config.dialog_layout).
+                Alert(obj, leftText, leftListener, rightText, rightListener);
     }
 }
