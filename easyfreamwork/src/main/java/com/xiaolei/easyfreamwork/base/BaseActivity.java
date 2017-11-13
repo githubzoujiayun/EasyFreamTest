@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
@@ -177,7 +178,7 @@ public abstract class BaseActivity extends Activity
         onEvent(message);
     }
 
-    public void onEvent(Message msg)
+    public void onEvent(@NonNull Message msg)
     {
     }
 
@@ -185,7 +186,7 @@ public abstract class BaseActivity extends Activity
      * 发送一个或者多个消息
      * @param messages
      */
-    public void post(Message... messages)
+    public void post(@NonNull Message... messages)
     {
         if (messages != null)
         {
