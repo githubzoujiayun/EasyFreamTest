@@ -174,13 +174,21 @@ public abstract class BaseV4Activity extends FragmentActivity
     public void onEvent(Message msg)
     {
     }
+    
     /**
-     * 发送一个消息
-     * @param message
+     * 发送一个或者多个消息
+     * @param messages
      */
-    public void post(Message message)
+    public void post(Message... messages)
     {
-        EventBus.getDefault().post(message);
+        if (messages != null)
+        {
+            for (int a = 0; a < messages.length; a++)
+            {
+                Message message = messages[a];
+                EventBus.getDefault().post(message);
+            }
+        }
     }
 
     public CustomAlertDialog getAlertDialog()

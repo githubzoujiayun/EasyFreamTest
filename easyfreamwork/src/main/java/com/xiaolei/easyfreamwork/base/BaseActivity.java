@@ -36,7 +36,7 @@ public abstract class BaseActivity extends Activity
     private CustomAlertDialog alertDialog;
     private boolean hasResume = false;
     private boolean hasPostCreate = false;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -52,7 +52,7 @@ public abstract class BaseActivity extends Activity
     protected void onPostCreate(@Nullable Bundle savedInstanceState)
     {
         super.onPostCreate(savedInstanceState);
-        if(!hasPostCreate)
+        if (!hasPostCreate)
         {
             initView();
             setListener();
@@ -95,7 +95,7 @@ public abstract class BaseActivity extends Activity
     protected void onResume()
     {
         super.onResume();
-        if(!hasResume)
+        if (!hasResume)
         {
             loadData();
             hasResume = true;
@@ -134,18 +134,18 @@ public abstract class BaseActivity extends Activity
     {
         alertDialog.Alert(obj, rightListener);
     }
-    
+
     public void Alert(Object obj, String rightText, Action rightListener)
     {
         alertDialog.Alert(obj, rightText, rightListener);
     }
 
-    public void Alert(Object obj,String leftText,Action leftListener,String rightText,Action rightListener)
+    public void Alert(Object obj, String leftText, Action leftListener, String rightText, Action rightListener)
     {
         alertDialog.Alert(obj, leftText, leftListener, rightText, rightListener);
     }
 
-    public void Alert(String title,Object obj,String leftText,Action leftListener,String rightText,Action rightListener)
+    public void Alert(String title, Object obj, String leftText, Action leftListener, String rightText, Action rightListener)
     {
         alertDialog.Alert(title, obj, leftText, leftListener, rightText, rightListener);
     }
@@ -182,17 +182,24 @@ public abstract class BaseActivity extends Activity
     }
 
     /**
-     * 发送一个消息
-     *
-     * @param message
+     * 发送一个或者多个消息
+     * @param messages
      */
-    public void post(Message message)
+    public void post(Message... messages)
     {
-        EventBus.getDefault().post(message);
+        if (messages != null)
+        {
+            for (int a = 0; a < messages.length; a++)
+            {
+                Message message = messages[a];
+                EventBus.getDefault().post(message);
+            }
+        }
     }
 
     /**
      * 获取自定义的dialog，怕有别的没想到的需求
+     *
      * @return
      */
     public CustomAlertDialog getAlertDialog()
