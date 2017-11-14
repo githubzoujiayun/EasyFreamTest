@@ -20,10 +20,10 @@ public class ApplicationBreage implements IApp
 {
     private IApp application;
     private static ApplicationBreage instance;
-    /**
-     * 是否已经显示了一次网络错误的提示
-     */
-    public static boolean hasNetworkError = false;
+    
+    // 网络连续出错发生的次数
+    public static int networkErrorTimes = 0;
+    
     private ApplicationBreage()
     {
     }

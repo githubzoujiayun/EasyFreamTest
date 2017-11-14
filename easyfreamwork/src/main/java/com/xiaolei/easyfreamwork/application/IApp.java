@@ -19,5 +19,4 @@ public interface IApp
     Application getApplication();
     Context getApplicationContext();
     Context getContext();
-    public boolean hasNetworkError = false;
 }

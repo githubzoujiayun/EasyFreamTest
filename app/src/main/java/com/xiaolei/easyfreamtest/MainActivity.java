@@ -1,20 +1,13 @@
 package com.xiaolei.easyfreamtest;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.TextView;
 
-import com.xiaolei.easyfreamwork.AlertDialog.CustomDialogBuilder;
 import com.xiaolei.easyfreamwork.AlertDialog.LoadingAlertDialog;
-import com.xiaolei.easyfreamwork.AlertDialog.dialog_fragment.DialogFragmentBuilder;
-import com.xiaolei.easyfreamwork.AlertDialog.dialog_fragment.DialogFragmentConfig;
 import com.xiaolei.easyfreamwork.base.BaseActivity;
 import com.xiaolei.easyfreamwork.network.BaseRetrofit;
 import com.xiaolei.easyfreamwork.network.common.SCallBack;
-import com.xiaolei.easyfreamwork.utils.DensityUtil;
 
 import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
@@ -72,17 +65,18 @@ public class MainActivity extends BaseActivity
     @OnClick({R.id.button,R.id.button2})
     public void onclick(View view)
     {
-        baidu.getIndex()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SCallBack<String>(this)
-                {
-                    @Override
-                    public void onSuccess(String result) throws Exception
-                    {
-                        Alert("好了");
-                    }
-                });
+         baidu.getIndex()
+                 .subscribeOn(Schedulers.newThread())
+                 .observeOn(AndroidSchedulers.mainThread())
+                 .subscribe(new SCallBack<String>(this)
+                 {
+                     @Override
+                     public void onSuccess(String result) throws Exception
+                     {
+                         Alert("好了");
+                     }
+                 });
+        
         // switch (view.getId())
         // {
         //     case R.id.button:
@@ -101,6 +95,6 @@ public class MainActivity extends BaseActivity
         //                 .show();//显示
         //         break;
         // }
-        startActivity(MainActivity2.class);
+         // startActivity(MainActivity2.class);
     }
 }

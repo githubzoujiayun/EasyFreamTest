@@ -22,7 +22,7 @@ import java.util.Map;
 public class APP extends Application implements IApp
 {
     List<Activity> activities = new ArrayList<>();
-
+    
     @Override
     public void onCreate()
     {
@@ -30,6 +30,7 @@ public class APP extends Application implements IApp
         config.setDEBUG(true);
         config.setBaseUrl("http://www.baidu.com/");
         config.regist(String.class, StringRegist.class);
+        config.setUnifiedFailEventKlass(FailEvent.class);
         Map<String, String> head = new HashMap<>();
         head.put("from", "xiaolei");
         config.setNetHeadeMap(head);

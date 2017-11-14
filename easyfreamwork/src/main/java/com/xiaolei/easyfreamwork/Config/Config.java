@@ -3,6 +3,8 @@ package com.xiaolei.easyfreamwork.Config;
 import android.support.annotation.LayoutRes;
 
 import com.xiaolei.easyfreamwork.R;
+import com.xiaolei.easyfreamwork.network.common.DefaultUnifiedFailEvent;
+import com.xiaolei.easyfreamwork.network.common.IUnifiedFailEvent;
 import com.xiaolei.easyfreamwork.network.regist.Regist;
 import com.xiaolei.easyfreamwork.network.regist.RegisteTable;
 
@@ -21,6 +23,8 @@ public class Config
     public static int dialog_layout = R.layout.dialog_alert;
     @LayoutRes
     public static int dialog_loading_layout = R.layout.dialog_loading;
+    public static Class<? extends IUnifiedFailEvent> UnifiedFailEventKlass = DefaultUnifiedFailEvent.class;
+    
     /**
      * 设置是否是DEBUG模式
      *
@@ -68,4 +72,8 @@ public class Config
         dialog_layout = alertdialog_layout;
     }
     
+    public void setUnifiedFailEventKlass(Class<? extends IUnifiedFailEvent> klass)
+    {
+        UnifiedFailEventKlass = klass;
+    }
 }

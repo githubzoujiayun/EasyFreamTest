@@ -182,19 +182,36 @@ com.xiaolei.easyfreamwork.Config.regist(String.class, StringRegist.class);
 
 ```
 
+--------------------------------
+
+>新增自定义统一的网络错误提示，步骤
+>
+>1.新建一个类，实现类：IUnifiedFailEvent 
+>
+>2.在config.setUnifiedFailEventKlass(FailEvent.class);
+>
+>内部会自动对这个class进行实例化，并且保证唯一，当然，你不设置这个也是可以的，因为我在内部设置了一个默认的：
+>
+>UnifiedFailEventKlass = DefaultUnifiedFailEvent.class;
+>
+>修改网络请求框架，当activity关闭时，延时的网络请求之后的回调都不会执行，避免发生不必要的异常，可以在框架外部定义统一的网络请求出错处理方式，如果调用处重写onFail并且不重写super.onFail，那么将只会执行自定义的处理方式而不会执行统一的处理方式
+>
+
+
 
 ##使用到的库
 ```gradle
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    //compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:multidex:1.0.2'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-scalars:2.0.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0'
-    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.jakewharton:butterknife:8.5.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     compile 'org.greenrobot:eventbus:3.0.0'

@@ -1,27 +1,25 @@
 package com.xiaolei.easyfreamwork.network.common;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 
 import com.xiaolei.easyfreamwork.Config.Config;
-import com.xiaolei.easyfreamwork.AlertDialog.CustomAlertDialog;
-import com.xiaolei.easyfreamwork.application.ApplicationBreage;
+import com.xiaolei.easyfreamwork.common.InstanceObjCatch;
 import com.xiaolei.easyfreamwork.network.regist.Regist;
 import com.xiaolei.easyfreamwork.network.regist.RegisteTable;
 
 import java.io.IOException;
 import java.lang.ref.SoftReference;
 import java.lang.reflect.Method;
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import rx.Observable;
 import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
+
+import static com.xiaolei.easyfreamwork.application.ApplicationBreage.networkErrorTimes;
 
 /**
  * Created by xiaolei on 2017/7/9.
@@ -30,11 +28,12 @@ import rx.functions.Action1;
 public abstract class SICallBack<T> implements Callback<T>, Observer<T>
 {
     public SoftReference<Context> context;
-    private CustomAlertDialog alertDialog;
-
+    private IUnifiedFailEvent failEvent;
+    
     public SICallBack(Context context)
     {
-        this.context = new SoftReference(context);
+        this.context = new SoftReference<>(context);
+        failEvent = InstanceObjCatch.getInstance().get(Config.UnifiedFailEventKlass);
     }
 
     public SICallBack(Fragment fragment)
@@ -48,14 +47,24 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
     }
 
     public abstract void onSuccess(T result) throws Exception;
-    
-    public abstract void onFail(Throwable t);
+
+    public void onFail(Throwable t)
+    {
+        if (checkActivityFinish()) return;
+        if (context.get() != null)
+        {
+            networkErrorTimes ++ ;
+            t.printStackTrace();
+            UnifiedFailEvent(t);
+        }
+    }
 
     public abstract void onFinally();
 
     @Override
     public void onResponse(Call<T> call, Response<T> response)
     {
+        if (checkActivityFinish()) return;
         try
         {
             if (response.isSuccessful())
@@ -63,11 +72,11 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
                 onNext(response.body());
             } else
             {
-                onFailure(call, new IOException(response.code() + ""));
+                onFail(new IOException(response.code() + ""));
             }
         } catch (Exception e)
         {
-            onFailure(call, new IOException(e));
+            onFail(new IOException(e));
         } finally
         {
             onFinally();
@@ -77,13 +86,9 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
     @Override
     public void onFailure(Call<T> call, Throwable t)
     {
+        if (checkActivityFinish()) return;
         try
         {
-            if (context.get() != null)
-            {
-                showExceptionAlert(t);
-                t.printStackTrace();
-            }
             onFail(t);
         } finally
         {
@@ -94,19 +99,20 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
     @Override
     public void onCompleted()
     {
+        if (checkActivityFinish()) return;
         onFinally();
     }
 
     @Override
     public void onError(Throwable e)
     {
+        if (checkActivityFinish()) return;
         try
         {
-            showExceptionAlert(e);
             onFail(e);
-            e.printStackTrace();
         } finally
         {
+            
             onFinally();
         }
     }
@@ -114,6 +120,7 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
     @Override
     public void onNext(T bodyBean)
     {
+        if (checkActivityFinish()) return;
         try
         {
             Class<? extends Regist> regist = RegisteTable.getInstance().getRegistValue(bodyBean);
@@ -160,48 +167,46 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
             e.printStackTrace();
         } finally
         {
-            ApplicationBreage.hasNetworkError = false;
+            networkErrorTimes = 0;
         }
     }
 
     /**
-     * 显示错误提示
+     * 检查界面是否关闭了
+     *
+     * @return
      */
-    private void showExceptionAlert(Throwable e)
+    private boolean checkActivityFinish()
     {
-        String alertStr = e.toString();
-        if (SocketTimeoutException.class.isInstance(e)
-                || retrofit2.adapter.rxjava.HttpException.class.isInstance(e)
-                || IOException.class.isInstance(e)
-                || ConnectException.class.isInstance(e))
+        Context mContext = context.get();
+        if (mContext != null)
         {
-            alertStr = ">_<||| 网络开小差，请稍后重试。";
-            if (!ApplicationBreage.hasNetworkError)
+            if (FragmentActivity.class.isInstance(mContext))
             {
-                ApplicationBreage.hasNetworkError = true;
-                Alert(alertStr);
+                FragmentActivity activity = (FragmentActivity) mContext;
+                return activity.isFinishing();
             }
+
+            if (Activity.class.isInstance(mContext))
+            {
+                Activity activity = (Activity) mContext;
+                return activity.isFinishing();
+            }
+            return false;
         } else
         {
-            Alert(alertStr);
+            return true;
         }
     }
 
-    private void Alert(Object obj)
+    /**
+     * 统一的错误处理方式
+     */
+    private void UnifiedFailEvent(Throwable e)
     {
-        Observable.just(obj)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Object>()
-                {
-                    @Override
-                    public void call(Object object)
-                    {
-                        if (alertDialog == null)
-                        {
-                            alertDialog = new CustomAlertDialog(SICallBack.this, Config.dialog_layout);
-                        }
-                        alertDialog.Alert(object);
-                    }
-                });
+        if(failEvent != null)
+        {
+            failEvent.onFail(this,e,context.get());
+        }
     }
 }

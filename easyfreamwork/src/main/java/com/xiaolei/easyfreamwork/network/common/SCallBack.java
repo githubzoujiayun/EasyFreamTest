@@ -34,6 +34,7 @@ public abstract class SCallBack<T> extends SICallBack<T>
     @Override
     public void onFail(Throwable t)
     {
+        super.onFail(t);
     }
     
     @Override
