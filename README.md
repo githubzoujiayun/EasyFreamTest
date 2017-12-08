@@ -4,24 +4,12 @@
 消息机制，刷新机制，登录机制，cookie支持，RXJAVA与Retrofit.Call完美兼容，注解式刷新机制。注解式回调机制。
 
 ##配置
->  1.在build.gradle(Project)里配置
-```gradle
-dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath 'com.jakewharton:butterknife-gradle-plugin:8.5.1'
-    }
-repositories {
-        jcenter()
-        mavenCentral()
-    }
-```
+
 
 >  2.在build.gradle(Module)里配置
 ```gradle
 dependencies {
-    compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.xiaolei:easyfreamwork:1.3.5'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }
 ```
 >  3.在mainfest.xml中新增权限
@@ -93,7 +81,7 @@ public class APP extends Application implements IApp
     }
     
     /**
-    * 自定义的网络Bean的回调 
+    * 自定义的网络的路由跳转回调
     */
     public static class StringRegist extends Regist<String>
     {
@@ -113,16 +101,7 @@ public class APP extends Application implements IApp
 ```
 
 ##介绍
-> 因为依赖了很多第三方的东西，所以其实我只是做一个集合而已，自己用的舒服。这里介绍一下怎么使用
-> #####findViewByid  以及对UI的操作，可以直接使用Retrofit
->这里需要对Retrofit有一个了解
-> ```java
->    @BindView(R.id.text)
->    TextView text;
->    @butterknife.OnClick
->    public void Click1(View v){} 
-> ```
->
+
 >#####网络请求
 > 这里需要一些Retrofit的知识
 >```java
@@ -133,9 +112,9 @@ public class APP extends Application implements IApp
 >```java
 >public void onEvent(android.os.Message message)
 >```
->发送消息使用EventBus原生的API
+>发送消息
 >```java
->EventBus.getDefault().post(message1);
+>BaseActivity.post(message1);
 >```
 
 >
@@ -197,23 +176,44 @@ com.xiaolei.easyfreamwork.Config.regist(String.class, StringRegist.class);
 >修改网络请求框架，当activity关闭时，延时的网络请求之后的回调都不会执行，避免发生不必要的异常，可以在框架外部定义统一的网络请求出错处理方式，如果调用处重写onFail并且不重写super.onFail，那么将只会执行自定义的处理方式而不会执行统一的处理方式
 >
 
+#2017年12月09日02:57:11
+更新日志：
+    新增了、缓存网络请求的结果 [CharSequenceCacheIntercepter.java](https://github.com/xiaolei123/EasyFreamTest/blob/master/easyfreamwork/src/main/java/com/xiaolei/easyfreamwork/network/interceptor/CharSequenceCacheIntercepter.java "缓存关键类")
 
+    支持：POST GET
 
-##使用到的库
-```gradle
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    //compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support:multidex:1.0.2'
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-scalars:2.0.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
-    compile 'io.reactivex:rxandroid:1.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0'
-    compile 'com.google.code.gson:gson:2.8.0'
-    compile 'com.jakewharton:butterknife:8.5.1'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-    compile 'org.greenrobot:eventbus:3.0.0'
+>使用方法：
+
+```java
+@Headers(CacheHeaders.PRIVATE)
+@FormUrlEncoded
+@POST("geocoding")
+Observable<DTBean> getIndex(@Field("a") String a);
+```
+
+只需要在你的Header里加上[CacheHeaders.java](https://github.com/xiaolei123/EasyFreamTest/blob/master/easyfreamwork/src/main/java/com/xiaolei/easyfreamwork/network/Catch/CacheHeaders.java "缓存标识类")
+```java
+/**
+ * 所有请求的缓存头
+ * Created by xiaolei on 2017/12/9.
+ */
+
+public class CacheHeaders
+{
+    // 自己设置的一个标签
+    public static final String NORMAL = "cache:true";
+    // 客户端可以缓存
+    public static final String PRIVATE = "Cache-Control:private";
+    // 客户端和代理服务器都可缓存（前端的同学，可以认为public和private是一样的）
+    public static final String MAX_AGE = "Cache-Control:max-age=xxx";
+    // 缓存的内容将在 xxx 秒后失效
+    public static final String NO_CACHE = "Cache-Control:no-cache";
+    // 需要使用对比缓存来验证缓存数据（后面介绍）
+    public static final String PUBLIC = "Cache-Control:public";
+    // 所有内容都不会缓存，强制缓存，对比缓存都不会触发（对于前端开发来说，缓存越多越好，so...基本上和它说886）
+    public static final String NO_STORE = "Cache-Control:no-store";
 }
 ```
+
+就可以实现缓存效果，
+#注意：只有在上次请求成功之后，才会缓存上次成功的结果，失败的结果，则不进行缓存。

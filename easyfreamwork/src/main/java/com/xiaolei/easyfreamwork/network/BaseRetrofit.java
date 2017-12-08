@@ -1,8 +1,6 @@
 package com.xiaolei.easyfreamwork.network;
 
 
-import com.xiaolei.easyfreamwork.application.ApplicationBreage;
-
 /**
  * Created by xiaolei on 2017/3/1.
  */

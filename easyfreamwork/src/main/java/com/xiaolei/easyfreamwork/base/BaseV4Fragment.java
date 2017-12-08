@@ -23,8 +23,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import butterknife.ButterKnife;
-
 /**
  * Created by xiaolei on 2017/3/7.
  */
@@ -53,7 +51,6 @@ public abstract class BaseV4Fragment extends Fragment
         if (contentView == null)
         {
             contentView = inflater.inflate(contentViewId(), null);
-            ButterKnife.bind(this, contentView);
             initData();
             initView();
             setListener();

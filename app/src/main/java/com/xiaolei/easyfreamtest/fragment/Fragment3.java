@@ -5,7 +5,6 @@ import android.widget.TextView;
 import com.xiaolei.easyfreamtest.R;
 import com.xiaolei.easyfreamwork.base.BaseV4Fragment;
 
-import butterknife.BindView;
 
 /**
  * Created by xiaolei on 2017/9/12.
@@ -13,7 +12,6 @@ import butterknife.BindView;
 
 public class Fragment3 extends BaseV4Fragment
 {
-    @BindView(R.id.textview)
     TextView textview;
     @Override
     public int contentViewId()
@@ -36,7 +34,7 @@ public class Fragment3 extends BaseV4Fragment
     @Override
     public void initView()
     {
-
+        textview = getView().findViewById(R.id.textview);
     }
 
     @Override

@@ -21,9 +21,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-
-import butterknife.ButterKnife;
-
 /**
  * Created by xiaolei on 2017/3/1.
  */
@@ -67,7 +64,6 @@ public abstract class BaseActivity extends Activity
         initObj();
         initData();
         super.setContentView(view);
-        ButterKnife.bind(this);
         onSetContentView();
     }
 
@@ -77,7 +73,6 @@ public abstract class BaseActivity extends Activity
         initObj();
         initData();
         super.setContentView(view, params);
-        ButterKnife.bind(this);
         onSetContentView();
     }
 
@@ -87,7 +82,6 @@ public abstract class BaseActivity extends Activity
         initObj();
         initData();
         super.setContentView(layoutResID);
-        ButterKnife.bind(this);
         onSetContentView();
     }
 

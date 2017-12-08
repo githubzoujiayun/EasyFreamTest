@@ -4,6 +4,7 @@ import com.xiaolei.easyfreamwork.Config.Config;
 import com.xiaolei.easyfreamwork.Config.Globals;
 import com.xiaolei.easyfreamwork.application.ApplicationBreage;
 import com.xiaolei.easyfreamwork.network.OKhttp.CookieManger;
+import com.xiaolei.easyfreamwork.network.interceptor.CharSequenceCacheIntercepter;
 import com.xiaolei.easyfreamwork.network.interceptor.SSessionInterceptor;
 import com.xiaolei.easyfreamwork.utils.Log;
 import com.xiaolei.easyfreamwork.utils.SDCardUtil;
@@ -45,8 +46,7 @@ public class BaseNetCore
         });
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         okHttpClient = new OkHttpClient.Builder()
-                //.addNetworkInterceptor(new CatchNetWorkInterceptor())
-                //.addInterceptor(new CatchInterceptor())
+                .addInterceptor(new CharSequenceCacheIntercepter())
                 .addInterceptor(new SSessionInterceptor(Config.netHeadeMap))
                 .addInterceptor(loggingInterceptor)
                 .retryOnConnectionFailure(true)//失败重连

@@ -19,7 +19,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import butterknife.ButterKnife;
 
 /**
  * 侧边滑动关闭Activity
@@ -54,7 +53,6 @@ public abstract class SlidingActivity extends AppCompatActivity
         initObj();
         initData();
         super.setContentView(view);
-        ButterKnife.bind(this);
         onSetContentView();
         initView();
         setListener();
@@ -67,7 +65,6 @@ public abstract class SlidingActivity extends AppCompatActivity
         initObj();
         initData();
         super.setContentView(view, params);
-        ButterKnife.bind(this);
         onSetContentView();
         initView();
         setListener();
@@ -80,7 +77,6 @@ public abstract class SlidingActivity extends AppCompatActivity
         initObj();
         initData();
         super.setContentView(layoutResID);
-        ButterKnife.bind(this);
         onSetContentView();
         initView();
         setListener();

@@ -26,7 +26,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import butterknife.ButterKnife;
 
 public abstract class BaseV4Activity extends FragmentActivity
 {
@@ -64,7 +63,6 @@ public abstract class BaseV4Activity extends FragmentActivity
         initObj();
         initData();
         super.setContentView(view);
-        ButterKnife.bind(this);
         onSetContentView();
     }
 
@@ -74,7 +72,6 @@ public abstract class BaseV4Activity extends FragmentActivity
         initObj();
         initData();
         super.setContentView(view, params);
-        ButterKnife.bind(this);
         onSetContentView();
     }
 
@@ -84,7 +81,6 @@ public abstract class BaseV4Activity extends FragmentActivity
         initObj();
         initData();
         super.setContentView(layoutResID);
-        ButterKnife.bind(this);
         onSetContentView();
     }
 

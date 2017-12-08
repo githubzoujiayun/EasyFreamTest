@@ -28,7 +28,8 @@ public class APP extends Application implements IApp
     {
         Config config = new Config();
         config.setDEBUG(true);
-        config.setBaseUrl("http://www.baidu.com/");
+        // http://gc.ditu.aliyun.com/geocoding?a=苏州市
+        config.setBaseUrl("http://gc.ditu.aliyun.com/");
         config.regist(String.class, StringRegist.class);
         config.setUnifiedFailEventKlass(FailEvent.class);
         Map<String, String> head = new HashMap<>();

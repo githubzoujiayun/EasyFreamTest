@@ -35,7 +35,6 @@ public class SSessionInterceptor implements Interceptor
             }
         }
         Request request = builder.build();
-        Response response = chain.proceed(request);
-        return response;
+        return chain.proceed(request);
     }
 }

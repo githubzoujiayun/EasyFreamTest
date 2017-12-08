@@ -3,20 +3,22 @@ package com.xiaolei.easyfreamtest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.xiaolei.easyfreamwork.AlertDialog.LoadingAlertDialog;
 import com.xiaolei.easyfreamwork.base.BaseActivity;
 import com.xiaolei.easyfreamwork.network.BaseRetrofit;
 import com.xiaolei.easyfreamwork.network.common.SCallBack;
 
-import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity
 {
     LoadingAlertDialog loading;
-    private Baidu baidu;
+    private Net baidu;
+    private Button button, button2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -28,26 +30,27 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onSetContentView()
     {
-        
+
     }
 
     @Override
     public void initObj()
     {
-        baidu = BaseRetrofit.create(Baidu.class);
+        baidu = BaseRetrofit.create(Net.class);
     }
 
     @Override
     public void initData()
     {
-        Intent intent = new Intent(this,mService.class);
+        Intent intent = new Intent(this, mService.class);
         startService(intent);
     }
 
     @Override
     public void initView()
     {
-
+        button = findViewById(R.id.button);
+        button2 = findViewById(R.id.button2);
     }
 
     @Override
@@ -59,42 +62,36 @@ public class MainActivity extends BaseActivity
     @Override
     public void loadData()
     {
-
+        button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                onclick(v);
+            }
+        });
+        button2.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                onclick(v);
+            }
+        });
     }
 
-    @OnClick({R.id.button,R.id.button2})
     public void onclick(View view)
     {
-         baidu.getIndex()
-                 .subscribeOn(Schedulers.newThread())
-                 .observeOn(AndroidSchedulers.mainThread())
-                 .subscribe(new SCallBack<String>(this)
-                 {
-                     @Override
-                     public void onSuccess(String result) throws Exception
-                     {
-                         Alert("好了");
-                     }
-                 });
-        
-        // switch (view.getId())
-        // {
-        //     case R.id.button:
-        //         loading.Alert("哈哈哈");
-        //         break;
-        //     case R.id.button2:
-        //         CustomDialogBuilder.With(this)//上下文
-        //                 .load(R.layout.dialog_loading)//自定义的布局文件
-        //                 .setDimAmount(0.5f)//设置背景透明度
-        //                 .setCancelable(true)//是否点击区域外隐藏
-        //                 .setGravity(Gravity.CENTER)
-        //                 .setHeigh(DensityUtil.dip2px(this,100))//设置高度
-        //                 .setWidth(DensityUtil.dip2px(this,100))//设置宽度
-        //                 .InitView(null)//初始化View
-        //                 .InitEvent(null)//初始化事件
-        //                 .show();//显示
-        //         break;
-        // }
-         // startActivity(MainActivity2.class);
+        baidu.getIndex("苏州市")
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SCallBack<DTBean>(this)
+                {
+                    @Override
+                    public void onSuccess(DTBean result) throws Exception
+                    {
+                        Alert("好了");
+                    }
+                });
     }
 }
