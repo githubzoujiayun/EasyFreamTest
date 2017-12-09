@@ -1,10 +1,10 @@
 package com.xiaolei.easyfreamwork.network;
 
+import com.xiaolei.OkhttpCacheInterceptor.CacheInterceptor;
 import com.xiaolei.easyfreamwork.Config.Config;
 import com.xiaolei.easyfreamwork.Config.Globals;
 import com.xiaolei.easyfreamwork.application.ApplicationBreage;
 import com.xiaolei.easyfreamwork.network.OKhttp.CookieManger;
-import com.xiaolei.easyfreamwork.network.interceptor.CharSequenceCacheIntercepter;
 import com.xiaolei.easyfreamwork.network.interceptor.SSessionInterceptor;
 import com.xiaolei.easyfreamwork.utils.Log;
 import com.xiaolei.easyfreamwork.utils.SDCardUtil;
@@ -35,6 +35,7 @@ public class BaseNetCore
 
     private BaseNetCore()
     {
+        com.xiaolei.OkhttpCacheInterceptor.Config.Config.DEBUG = Config.DEBUG;
         cookiemanager = new CookieManger(ApplicationBreage.getInstance().getApplicationContext());
         loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger()
         {
@@ -46,7 +47,7 @@ public class BaseNetCore
         });
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(new CharSequenceCacheIntercepter())
+                .addInterceptor(new CacheInterceptor(ApplicationBreage.getInstance().getContext()))
                 .addInterceptor(new SSessionInterceptor(Config.netHeadeMap))
                 .addInterceptor(loggingInterceptor)
                 .retryOnConnectionFailure(true)//失败重连

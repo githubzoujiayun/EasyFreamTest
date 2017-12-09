@@ -1,6 +1,7 @@
 package com.xiaolei.easyfreamtest;
 
-import com.xiaolei.easyfreamwork.network.Catch.CacheHeaders;
+
+import com.xiaolei.OkhttpCacheInterceptor.Header.CacheHeaders;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
