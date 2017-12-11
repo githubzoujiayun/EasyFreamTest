@@ -34,12 +34,12 @@ public abstract class BaseFragment extends Fragment
     protected Toast toast = null;
     private View contentView = null;
     private CustomAlertDialog alertDialog;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         Log.e(TAG, this.getClass().getName() + ":onCreate");
         super.onCreate(savedInstanceState);
-        alertDialog = new CustomAlertDialog(this, Config.dialog_layout);
         EventBus.getDefault().register(this);
         initObj();
     }
@@ -111,26 +111,36 @@ public abstract class BaseFragment extends Fragment
 
     public void Alert(Object obj)
     {
-        alertDialog.Alert(obj);
+        Alert(obj, "确定", null);
     }
 
     public void Alert(Object obj, Action rightListener)
     {
-        alertDialog.Alert(obj, rightListener);
+        Alert(obj, null, null, "确定", rightListener);
     }
 
     public void Alert(Object obj, String rightText, Action rightListener)
     {
-        alertDialog.Alert(obj, rightText, rightListener);
+        Alert(obj, null, null, rightText, rightListener);
     }
 
-    public void Alert(Object obj,String leftText,Action leftListener,String rightText,Action rightListener)
+    public void Alert(Object obj, String leftText, Action leftListener, String rightText, Action rightListener)
     {
-        alertDialog.Alert(obj, leftText, leftListener, rightText, rightListener);
+        Alert(null, obj, leftText, leftListener, rightText, rightListener);
     }
 
-    public void Alert(String title,Object obj,String leftText,Action leftListener,String rightText,Action rightListener)
+    public void Alert(String title, Object obj, String leftText, Action leftListener, String rightText, Action rightListener)
     {
+        if (alertDialog == null)
+        {
+            synchronized (this)
+            {
+                if (alertDialog == null)
+                {
+                    alertDialog = new CustomAlertDialog(this, Config.dialog_layout);
+                }
+            }
+        }
         alertDialog.Alert(title, obj, leftText, leftListener, rightText, rightListener);
     }
 
@@ -176,9 +186,10 @@ public abstract class BaseFragment extends Fragment
     public void onEvent(@NonNull Message msg)
     {
     }
-    
+
     /**
      * 发送一个或者多个消息
+     *
      * @param messages
      */
     public void post(@NonNull Message... messages)
@@ -192,10 +203,20 @@ public abstract class BaseFragment extends Fragment
             }
         }
     }
-    
-    
+
+
     public CustomAlertDialog getAlertDialog()
     {
+        if (alertDialog == null)
+        {
+            synchronized (this)
+            {
+                if (alertDialog == null)
+                {
+                    alertDialog = new CustomAlertDialog(this, Config.dialog_layout);
+                }
+            }
+        }
         return alertDialog;
     }
 }

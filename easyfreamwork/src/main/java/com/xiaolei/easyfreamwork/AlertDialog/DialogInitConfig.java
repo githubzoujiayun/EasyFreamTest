@@ -21,7 +21,7 @@ public class DialogInitConfig
     private DialogInitCallBack initCallBack;
     private DialogEventCallBack eventCallBack;
     private int width = -1, heigh = -1;
-    private float dimAmount = 0f;
+    private float dimAmount = 0.3f;
     @LayoutRes
     private int layout = -1;
     private AlertDialog.Builder builder;
@@ -201,6 +201,10 @@ public class DialogInitConfig
                 window.getWindowManager().getDefaultDisplay().getMetrics(dm);
                 if (width != -1)
                 {
+                    params.width = width;
+                } else
+                {
+                    setWidth(0.8);
                     params.width = width;
                 }
                 if (heigh != -1)

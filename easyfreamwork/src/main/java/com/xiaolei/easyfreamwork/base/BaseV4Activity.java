@@ -44,7 +44,6 @@ public abstract class BaseV4Activity extends FragmentActivity
         ApplicationBreage.getInstance().addActivity(this);
         Log.d(TAG, this.getClass().getName() + ":onCreate");
         EventBus.getDefault().register(this);
-        alertDialog = new CustomAlertDialog(this, Config.dialog_layout);
     }
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState)
@@ -118,26 +117,36 @@ public abstract class BaseV4Activity extends FragmentActivity
 
     public void Alert(Object obj)
     {
-        alertDialog.Alert(obj);
+        Alert(obj, "确定", null);
     }
 
     public void Alert(Object obj, Action rightListener)
     {
-        alertDialog.Alert(obj, rightListener);
+        Alert(obj, null, null, "确定", rightListener);
     }
 
     public void Alert(Object obj, String rightText, Action rightListener)
     {
-        alertDialog.Alert(obj, rightText, rightListener);
+        Alert(obj, null, null, rightText, rightListener);
     }
 
-    public void Alert(Object obj,String leftText,Action leftListener,String rightText,Action rightListener)
+    public void Alert(Object obj, String leftText, Action leftListener, String rightText, Action rightListener)
     {
-        alertDialog.Alert(obj, leftText, leftListener, rightText, rightListener);
+        Alert(null, obj, leftText, leftListener, rightText, rightListener);
     }
 
-    public void Alert(String title,Object obj,String leftText,Action leftListener,String rightText,Action rightListener)
+    public void Alert(String title, Object obj, String leftText, Action leftListener, String rightText, Action rightListener)
     {
+        if (alertDialog == null)
+        {
+            synchronized (this)
+            {
+                if (alertDialog == null)
+                {
+                    alertDialog = new CustomAlertDialog(this, Config.dialog_layout);
+                }
+            }
+        }
         alertDialog.Alert(title, obj, leftText, leftListener, rightText, rightListener);
     }
 
@@ -190,6 +199,16 @@ public abstract class BaseV4Activity extends FragmentActivity
 
     public CustomAlertDialog getAlertDialog()
     {
+        if (alertDialog == null)
+        {
+            synchronized (this)
+            {
+                if (alertDialog == null)
+                {
+                    alertDialog = new CustomAlertDialog(this, Config.dialog_layout);
+                }
+            }
+        }
         return alertDialog;
     }
 }

@@ -40,7 +40,6 @@ public abstract class BaseActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         handler = new Handler();
-        alertDialog = new CustomAlertDialog(this, Config.dialog_layout);
         ApplicationBreage.getInstance().addActivity(this);
         Log.d(TAG, klassName + ":onCreate");
         EventBus.getDefault().register(this);
@@ -122,26 +121,36 @@ public abstract class BaseActivity extends Activity
 
     public void Alert(Object obj)
     {
-        alertDialog.Alert(obj);
+        Alert(obj, "确定", null);
     }
 
     public void Alert(Object obj, Action rightListener)
     {
-        alertDialog.Alert(obj, rightListener);
+        Alert(obj, null, null, "确定", rightListener);
     }
 
     public void Alert(Object obj, String rightText, Action rightListener)
     {
-        alertDialog.Alert(obj, rightText, rightListener);
+        Alert(obj, null, null, rightText, rightListener);
     }
 
     public void Alert(Object obj, String leftText, Action leftListener, String rightText, Action rightListener)
     {
-        alertDialog.Alert(obj, leftText, leftListener, rightText, rightListener);
+        Alert(null, obj, leftText, leftListener, rightText, rightListener);
     }
 
     public void Alert(String title, Object obj, String leftText, Action leftListener, String rightText, Action rightListener)
     {
+        if (alertDialog == null)
+        {
+            synchronized (this)
+            {
+                if (alertDialog == null)
+                {
+                    alertDialog = new CustomAlertDialog(this, Config.dialog_layout);
+                }
+            }
+        }
         alertDialog.Alert(title, obj, leftText, leftListener, rightText, rightListener);
     }
 
@@ -199,6 +208,16 @@ public abstract class BaseActivity extends Activity
      */
     public CustomAlertDialog getAlertDialog()
     {
+        if (alertDialog == null)
+        {
+            synchronized (this)
+            {
+                if (alertDialog == null)
+                {
+                    alertDialog = new CustomAlertDialog(this, Config.dialog_layout);
+                }
+            }
+        }
         return alertDialog;
     }
 }
