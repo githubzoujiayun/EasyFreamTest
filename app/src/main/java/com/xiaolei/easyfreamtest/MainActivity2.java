@@ -3,12 +3,6 @@ package com.xiaolei.easyfreamtest;
 import android.os.Bundle;
 
 import com.xiaolei.easyfreamwork.Sliding.SlidingActivity;
-import com.xiaolei.easyfreamwork.network.BaseRetrofit;
-import com.xiaolei.easyfreamwork.network.common.SCallBack;
-import com.xiaolei.easyfreamwork.utils.Log;
-
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class MainActivity2 extends SlidingActivity
 {

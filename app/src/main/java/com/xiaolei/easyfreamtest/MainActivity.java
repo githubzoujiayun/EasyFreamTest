@@ -10,8 +10,7 @@ import com.xiaolei.easyfreamwork.base.BaseActivity;
 import com.xiaolei.easyfreamwork.network.BaseRetrofit;
 import com.xiaolei.easyfreamwork.network.common.SCallBack;
 
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import retrofit2.Call;
 
 public class MainActivity extends BaseActivity
 {
@@ -82,16 +81,20 @@ public class MainActivity extends BaseActivity
 
     public void onclick(View view)
     {
-        baidu.getIndex("苏州市")
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SCallBack<DTBean>(this)
-                {
-                    @Override
-                    public void onSuccess(DTBean result) throws Exception
-                    {
-                        Alert("好了");
-                    }
-                });
+        Call<DTBean> call = baidu.getIndex("苏州市");
+        call.enqueue(new SCallBack<DTBean>(this)
+        {
+            @Override
+            public void onSuccess(DTBean result) throws Exception
+            {
+                Alert("好了" + result.getLon());
+            }
+
+            @Override
+            public void onCache(DTBean result) throws Exception
+            {
+                Alert("来自缓存：" + result.getLon());
+            }
+        });
     }
 }

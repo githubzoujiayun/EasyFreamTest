@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 
+import com.xiaolei.OkhttpCacheInterceptor.CacheType;
 import com.xiaolei.easyfreamwork.Config.Config;
 import com.xiaolei.easyfreamwork.common.InstanceObjCatch;
 import com.xiaolei.easyfreamwork.network.regist.Regist;
@@ -17,7 +18,6 @@ import java.lang.reflect.Method;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import rx.Observer;
 
 import static com.xiaolei.easyfreamwork.application.ApplicationBreage.networkErrorTimes;
 
@@ -25,11 +25,11 @@ import static com.xiaolei.easyfreamwork.application.ApplicationBreage.networkErr
  * Created by xiaolei on 2017/7/9.
  */
 
-public abstract class SICallBack<T> implements Callback<T>, Observer<T>
+public abstract class SICallBack<T> implements Callback<T>
 {
     public SoftReference<Context> context;
     private IUnifiedFailEvent failEvent;
-    
+
     public SICallBack(Context context)
     {
         this.context = new SoftReference<>(context);
@@ -50,10 +50,11 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
 
     public void onFail(Throwable t)
     {
-        if (checkActivityFinish()) return;
+        if (checkActivityFinish())
+            return;
         if (context.get() != null)
         {
-            networkErrorTimes ++ ;
+            networkErrorTimes++;
             t.printStackTrace();
             UnifiedFailEvent(t);
         }
@@ -61,15 +62,18 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
 
     public abstract void onFinally();
 
+    public abstract void onCache(T result) throws Exception;
+
     @Override
     public void onResponse(Call<T> call, Response<T> response)
     {
-        if (checkActivityFinish()) return;
+        if (checkActivityFinish())
+            return;
         try
         {
             if (response.isSuccessful())
             {
-                onNext(response.body());
+                onNext(response.body(),response);
             } else
             {
                 onFail(new IOException(response.code() + ""));
@@ -86,7 +90,8 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
     @Override
     public void onFailure(Call<T> call, Throwable t)
     {
-        if (checkActivityFinish()) return;
+        if (checkActivityFinish())
+            return;
         try
         {
             onFail(t);
@@ -96,31 +101,11 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
         }
     }
 
-    @Override
-    public void onCompleted()
-    {
-        if (checkActivityFinish()) return;
-        onFinally();
-    }
 
-    @Override
-    public void onError(Throwable e)
+    private void onNext(T bodyBean, Response<T> response)
     {
-        if (checkActivityFinish()) return;
-        try
-        {
-            onFail(e);
-        } finally
-        {
-            
-            onFinally();
-        }
-    }
-
-    @Override
-    public void onNext(T bodyBean)
-    {
-        if (checkActivityFinish()) return;
+        if (checkActivityFinish())
+            return;
         try
         {
             Class<? extends Regist> regist = RegisteTable.getInstance().getRegistValue(bodyBean);
@@ -161,7 +146,15 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
                     }
                 }
             }
-            onSuccess(bodyBean);
+            if (CacheType.DISK_CACHE.equals(response.message())
+                    || CacheType.MEMORY_CACHE.equals(response.message()))
+            {
+                onCache(bodyBean);
+            }else 
+            {
+                onSuccess(bodyBean);
+            }
+            
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -204,9 +197,9 @@ public abstract class SICallBack<T> implements Callback<T>, Observer<T>
      */
     private void UnifiedFailEvent(Throwable e)
     {
-        if(failEvent != null)
+        if (failEvent != null)
         {
-            failEvent.onFail(this,e,context.get());
+            failEvent.onFail(this, e, context.get());
         }
     }
 }

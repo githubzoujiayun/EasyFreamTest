@@ -14,6 +14,7 @@ import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
+
 /**
  * 默认的统一的失败提示接口
  * Created by xiaolei on 2017/11/14.
@@ -25,7 +26,6 @@ public class DefaultUnifiedFailEvent implements IUnifiedFailEvent
     {
         String alertStr = t.toString();
         if (SocketTimeoutException.class.isInstance(t)
-                || retrofit2.adapter.rxjava.HttpException.class.isInstance(t)
                 || IOException.class.isInstance(t)
                 || ConnectException.class.isInstance(t))
         {
@@ -47,9 +47,9 @@ public class DefaultUnifiedFailEvent implements IUnifiedFailEvent
                 .subscribe(new Action1<Object>()
                 {
                     @Override
-                    public void call(Object object)
+                    public void call(Object o)
                     {
-                        new CustomAlertDialog(callBack, Config.dialog_layout).Alert(object);
+                        new CustomAlertDialog(callBack, Config.dialog_layout).Alert(o);
                     }
                 });
     }

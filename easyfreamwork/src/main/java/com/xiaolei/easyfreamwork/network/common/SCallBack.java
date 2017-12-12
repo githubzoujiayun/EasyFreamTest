@@ -32,6 +32,12 @@ public abstract class SCallBack<T> extends SICallBack<T>
     }
 
     @Override
+    public void onCache(T result) throws Exception
+    {
+        onSuccess(result);
+    }
+
+    @Override
     public void onFail(Throwable t)
     {
         super.onFail(t);

@@ -16,7 +16,6 @@ import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
@@ -59,7 +58,6 @@ public class BaseNetCore
                 .baseUrl(Globals.SERVER_ADDRESS) //02采用链式结构绑定Base url
                 .addConverterFactory(ScalarsConverterFactory.create())//首先判断是否需要转换成字符串，简单类型
                 .addConverterFactory(GsonConverterFactory.create())//再将转换成bean
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(okHttpClient)
                 .build();//03执行操作
     }
