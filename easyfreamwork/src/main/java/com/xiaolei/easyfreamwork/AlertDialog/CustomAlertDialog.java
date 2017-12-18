@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.xiaolei.easyfreamwork.Config.Config;
 import com.xiaolei.easyfreamwork.R;
 import com.xiaolei.easyfreamwork.common.listeners.Action;
-import com.xiaolei.easyfreamwork.network.common.SICallBack;
 
 /**
  * 提示框的自定义的AlertDialog
@@ -64,16 +63,6 @@ public class CustomAlertDialog
     public CustomAlertDialog(android.support.v4.app.Fragment fragment, @LayoutRes int layout)
     {
         this(fragment.getActivity(),layout);
-    }
-
-    public CustomAlertDialog(SICallBack callBack)
-    {
-        this(callBack, Config.dialog_layout);
-    }
-
-    public CustomAlertDialog(SICallBack callBack, @LayoutRes int layout)
-    {
-        this((Context) callBack.context.get(),layout);
     }
     
     public CustomAlertDialog(Context context)

@@ -1,14 +1,9 @@
 package com.xiaolei.easyfreamwork.application;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.support.annotation.IdRes;
-
 import com.xiaolei.easyfreamwork.Config.Config;
-import com.xiaolei.easyfreamwork.network.OKhttp.PersistentCookieStore;
 
-import retrofit2.Retrofit;
 
 /**
  * 这个的存在，是为了与用户的application彻底分离开来
@@ -20,9 +15,6 @@ public class ApplicationBreage implements IApp
 {
     private IApp application;
     private static ApplicationBreage instance;
-    
-    // 网络连续出错发生的次数
-    public static int networkErrorTimes = 0;
     
     private ApplicationBreage()
     {
@@ -38,25 +30,6 @@ public class ApplicationBreage implements IApp
     public void initApplication(IApp iApp, Config config)
     {
         instance.application = iApp;
-    }
-    
-    
-    @Override
-    public void addActivity(Activity activity)
-    {
-        application.addActivity(activity);
-    }
-
-    @Override
-    public void removeActivity(Activity activity)
-    {
-        application.removeActivity(activity);
-    }
-
-    @Override
-    public void removeAllActivity()
-    {
-        application.removeAllActivity();
     }
 
     @Override

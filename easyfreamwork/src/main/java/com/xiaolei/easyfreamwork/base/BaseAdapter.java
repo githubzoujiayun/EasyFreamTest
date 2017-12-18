@@ -1,5 +1,6 @@
 package com.xiaolei.easyfreamwork.base;
 
+import android.support.annotation.NonNull;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +60,7 @@ public abstract class BaseAdapter<DataType, viewHolder extends BaseAdapter.Holde
      * @param viewType 类型
      * @return
      */
-    public abstract viewHolder onCreateViewHolder(ViewGroup parent, int viewType);
+    public abstract viewHolder onCreateViewHolder(@NonNull ViewGroup parent, @NonNull int viewType);
 
     /**
      * ViewHolder与数据的绑定
@@ -68,7 +69,7 @@ public abstract class BaseAdapter<DataType, viewHolder extends BaseAdapter.Holde
      * @param data     数据
      * @param position 定位
      */
-    public abstract void onBindViewHolder(viewHolder holder, DataType data, int position);
+    public abstract void onBindViewHolder(@NonNull viewHolder holder, @NonNull DataType data, @NonNull int position);
 
     public int getItemCount()
     {

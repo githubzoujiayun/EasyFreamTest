@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.xiaolei.easyfreamwork.application.ApplicationBreage;
 import com.xiaolei.easyfreamwork.common.listeners.Action;
 import com.xiaolei.easyfreamwork.utils.Log;
 
@@ -42,7 +41,6 @@ public abstract class SlidingActivity extends AppCompatActivity
         }
         handler = new Handler();
         builder = new AlertDialog.Builder(this);
-        ApplicationBreage.getInstance().addActivity(this);
         Log.d(TAG, klassName + ":onCreate");
         EventBus.getDefault().register(this);
     }
@@ -100,7 +98,6 @@ public abstract class SlidingActivity extends AppCompatActivity
     {
         Log.d(TAG, klassName + ":onDestroy");
         handler.removeCallbacksAndMessages(null);
-        ApplicationBreage.getInstance().removeActivity(this);
         EventBus.getDefault().unregister(this);
 
         super.onDestroy();

@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.xiaolei.easyfreamwork.Config.Config;
 import com.xiaolei.easyfreamwork.AlertDialog.CustomAlertDialog;
-import com.xiaolei.easyfreamwork.application.ApplicationBreage;
 import com.xiaolei.easyfreamwork.common.listeners.Action;
 import com.xiaolei.easyfreamwork.utils.Log;
 
@@ -40,7 +39,6 @@ public abstract class BaseActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         handler = new Handler();
-        ApplicationBreage.getInstance().addActivity(this);
         Log.d(TAG, klassName + ":onCreate");
         EventBus.getDefault().register(this);
     }
@@ -113,9 +111,7 @@ public abstract class BaseActivity extends Activity
     {
         Log.d(TAG, klassName + ":onDestroy");
         handler.removeCallbacksAndMessages(null);
-        ApplicationBreage.getInstance().removeActivity(this);
         EventBus.getDefault().unregister(this);
-
         super.onDestroy();
     }
 

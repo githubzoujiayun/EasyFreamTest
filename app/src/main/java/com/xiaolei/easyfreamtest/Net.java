@@ -1,7 +1,6 @@
 package com.xiaolei.easyfreamtest;
 
-
-import com.xiaolei.OkhttpCacheInterceptor.Header.CacheHeaders;
+import com.xiaolei.okhttputil.Catch.CacheHeaders;
 
 import retrofit2.Call;
 import retrofit2.http.Field;

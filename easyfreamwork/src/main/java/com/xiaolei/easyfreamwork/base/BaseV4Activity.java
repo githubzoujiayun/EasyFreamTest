@@ -41,7 +41,6 @@ public abstract class BaseV4Activity extends FragmentActivity
     {
         super.onCreate(savedInstanceState);
         handler = new Handler();
-        ApplicationBreage.getInstance().addActivity(this);
         Log.d(TAG, this.getClass().getName() + ":onCreate");
         EventBus.getDefault().register(this);
     }
@@ -111,7 +110,6 @@ public abstract class BaseV4Activity extends FragmentActivity
     {
         EventBus.getDefault().unregister(this);
         handler.removeCallbacksAndMessages(null);
-        ApplicationBreage.getInstance().removeActivity(this);
         super.onDestroy();
     }
 

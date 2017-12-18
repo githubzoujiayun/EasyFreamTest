@@ -5,10 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.xiaolei.easyfreamtest.NetPkg.BaseRetrofit;
 import com.xiaolei.easyfreamwork.AlertDialog.LoadingAlertDialog;
 import com.xiaolei.easyfreamwork.base.BaseActivity;
-import com.xiaolei.easyfreamwork.network.BaseRetrofit;
-import com.xiaolei.easyfreamwork.network.common.SCallBack;
+import com.xiaolei.exretrofitcallback.network.common.SCallBack;
 
 import retrofit2.Call;
 
@@ -41,8 +41,7 @@ public class MainActivity extends BaseActivity
     @Override
     public void initData()
     {
-        Intent intent = new Intent(this, mService.class);
-        startService(intent);
+        
     }
 
     @Override
